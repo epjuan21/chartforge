@@ -1,14 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { Download, Loader2, AlertCircle, CheckCircle } from 'lucide-react';
+import { Download, Loader2, AlertCircle, CheckCircle, Clipboard, ClipboardCheck } from 'lucide-react';
 import type { ExportFormat, ExportOptions, PdfOrientation, PngScale } from '@/types';
 import styles from './ExportPanel.module.css';
 
 interface ExportPanelProps {
   isExporting: boolean;
+  isCopying: boolean;
   error: string | null;
   onExport: (options: ExportOptions) => void;
+  onCopy: (scale: number) => Promise<void>;
 }
 
 const FORMAT_OPTIONS: { id: ExportFormat; label: string; desc: string }[] = [
@@ -23,7 +25,7 @@ const SCALE_OPTIONS: { value: PngScale; label: string }[] = [
   { value: 3, label: '3×' },
 ];
 
-export default function ExportPanel({ isExporting, error, onExport }: ExportPanelProps) {
+export default function ExportPanel({ isExporting, isCopying, error, onExport, onCopy }: ExportPanelProps) {
   const [format, setFormat] = useState<ExportFormat>('png');
   const [filename, setFilename] = useState('mi-grafico');
   const [scale, setScale] = useState<PngScale>(2);
@@ -31,13 +33,20 @@ export default function ExportPanel({ isExporting, error, onExport }: ExportPane
   const [pdfOrientation, setPdfOrientation] = useState<PdfOrientation>('landscape');
   const [includeTitle, setIncludeTitle] = useState(true);
   const [success, setSuccess] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
 
   async function handleExport() {
     setSuccess(false);
     onExport({ format, filename: filename.trim() || 'grafico', scale, transparent, pdfOrientation, includeTitle });
-    // Mostrar éxito tras un breve delay (el estado isExporting lo controla el padre)
     setTimeout(() => setSuccess(true), 200);
     setTimeout(() => setSuccess(false), 2500);
+  }
+
+  async function handleCopy() {
+    setCopySuccess(false);
+    await onCopy(scale);
+    setCopySuccess(true);
+    setTimeout(() => setCopySuccess(false), 2500);
   }
 
   return (
@@ -175,26 +184,56 @@ export default function ExportPanel({ isExporting, error, onExport }: ExportPane
           <span>Gráfico descargado correctamente</span>
         </div>
       )}
+      {copySuccess && !isCopying && !error && (
+        <div className={styles.successMsg}>
+          <ClipboardCheck size={13} />
+          <span>Gráfico copiado al portapapeles</span>
+        </div>
+      )}
 
-      {/* Botón de descarga */}
-      <button
-        type="button"
-        className={styles.downloadBtn}
-        onClick={handleExport}
-        disabled={isExporting}
-      >
-        {isExporting ? (
-          <>
-            <Loader2 size={15} className={styles.spinner} />
-            <span>Generando...</span>
-          </>
-        ) : (
-          <>
-            <Download size={15} />
-            <span>Descargar {format.toUpperCase()}</span>
-          </>
+      {/* Botones de acción */}
+      <div className={styles.actionRow}>
+        {format === 'png' && (
+          <button
+            type="button"
+            className={styles.copyBtn}
+            onClick={handleCopy}
+            disabled={isCopying || isExporting}
+            title="Copiar imagen al portapapeles"
+          >
+            {isCopying ? (
+              <>
+                <Loader2 size={15} className={styles.spinner} />
+                <span>Copiando...</span>
+              </>
+            ) : (
+              <>
+                <Clipboard size={15} />
+                <span>Copiar</span>
+              </>
+            )}
+          </button>
         )}
-      </button>
+
+        <button
+          type="button"
+          className={styles.downloadBtn}
+          onClick={handleExport}
+          disabled={isExporting || isCopying}
+        >
+          {isExporting ? (
+            <>
+              <Loader2 size={15} className={styles.spinner} />
+              <span>Generando...</span>
+            </>
+          ) : (
+            <>
+              <Download size={15} />
+              <span>Descargar {format.toUpperCase()}</span>
+            </>
+          )}
+        </button>
+      </div>
     </div>
   );
 }

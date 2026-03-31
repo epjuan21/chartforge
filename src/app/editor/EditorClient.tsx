@@ -61,7 +61,7 @@ export default function EditorClient() {
   } = useChartData('bar');
   const { config, setType, update: updateConfig } = useChartConfig();
   const { style, activeColors, setPalette, update: updateStyle } = useChartStyle();
-  const { isExporting, error: exportError, runExport } = useExport(chartRef);
+  const { isExporting, isCopying, error: exportError, runExport, runCopy } = useExport(chartRef);
 
   // Sincroniza estado con localStorage para que /preview lo pueda leer
   useEffect(() => {
@@ -187,8 +187,10 @@ export default function EditorClient() {
           {panelTab === 'export' && (
             <ExportPanel
               isExporting={isExporting}
+              isCopying={isCopying}
               error={exportError}
               onExport={handleExport}
+              onCopy={runCopy}
             />
           )}
         </div>

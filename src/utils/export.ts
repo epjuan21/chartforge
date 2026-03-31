@@ -79,6 +79,28 @@ export async function exportToPdf(
   pdf.save(`${options.filename}.pdf`);
 }
 
+export async function copyToClipboard(
+  element: HTMLElement,
+  scale: number = 2,
+): Promise<void> {
+  if (!navigator.clipboard?.write) {
+    throw new Error('Tu navegador no soporta copiar imágenes al portapapeles.');
+  }
+
+  const { toPng } = await import('html-to-image');
+  const computedBg = getComputedStyle(element).backgroundColor || undefined;
+  const dataUrl = await toPng(element, {
+    pixelRatio: scale,
+    backgroundColor: computedBg,
+    quality: 1.0,
+    skipFonts: false,
+  });
+
+  const res = await fetch(dataUrl);
+  const blob = await res.blob();
+  await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+}
+
 function triggerDownload(dataUrl: string, filename: string) {
   const link = document.createElement('a');
   link.download = filename;
