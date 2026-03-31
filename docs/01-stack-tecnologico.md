@@ -1,7 +1,7 @@
 # Fase 1: Stack Tecnológico y Arquitectura
 
-> **Estado General:** ⬜ Pendiente  
-> **Última actualización:** 2026-03-29
+> **Estado General:** ✅ Completado
+> **Última actualización:** 2026-03-30
 
 ---
 
@@ -9,10 +9,10 @@
 
 | # | Tarea | Estado | Fecha Inicio | Fecha Fin | Notas |
 |---|-------|--------|-------------|-----------|-------|
-| 1.1 | Definir stack tecnológico principal | ⬜ Pendiente | — | — | |
-| 1.2 | Definir estructura de carpetas | ⬜ Pendiente | — | — | |
-| 1.3 | Definir convenciones de código | ⬜ Pendiente | — | — | |
-| 1.4 | Documentar decisiones de arquitectura | ⬜ Pendiente | — | — | |
+| 1.1 | Definir stack tecnológico principal | ✅ | 2026-03-29 | 2026-03-29 | Next.js 16.2.1, React 19, TypeScript 5 |
+| 1.2 | Definir estructura de carpetas | ✅ | 2026-03-29 | 2026-03-29 | `app/`, `components/`, `hooks/`, `types/`, `utils/`, `constants/` |
+| 1.3 | Definir convenciones de código | ✅ | 2026-03-29 | 2026-03-29 | PascalCase componentes, camelCase hooks/utils |
+| 1.4 | Documentar decisiones de arquitectura | ✅ | 2026-03-29 | 2026-03-29 | Sin estado global, sin API routes, CSS Modules + Variables |
 
 ---
 

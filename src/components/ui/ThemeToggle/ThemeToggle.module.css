@@ -1,0 +1,30 @@
+.btn {
+  align-items: center;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  font-family: inherit;
+  font-size: var(--text-xs);
+  gap: 0.3rem;
+  padding: 0.35rem 0.65rem;
+  transition: background var(--transition-fast), color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.btn:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-accent-primary);
+  color: var(--color-text-primary);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  font-weight: 500;
+}

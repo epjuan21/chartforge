@@ -23,14 +23,14 @@
 
 | Fase | Nombre | Archivo | Estado |
 |------|--------|---------|--------|
-| 1 | Stack Tecnológico y Arquitectura | [01-stack-tecnologico.md](./01-stack-tecnologico.md) | `⬜ Pendiente` |
-| 2 | Librerías Gráficas y Evaluación | [02-librerias-graficas.md](./02-librerias-graficas.md) | `⬜ Pendiente` |
-| 3 | Configuración del Proyecto y Fundación | [03-configuracion-proyecto.md](./03-configuracion-proyecto.md) | `⬜ Pendiente` |
-| 4 | Componentes de Gráficos y Formularios | [04-componentes-graficos.md](./04-componentes-graficos.md) | `⬜ Pendiente` |
-| 5 | Diseño UI/UX e Interacciones | [05-diseno-ui-ux.md](./05-diseno-ui-ux.md) | `⬜ Pendiente` |
-| 6 | Exportación y Descarga | [06-exportacion-descarga.md](./06-exportacion-descarga.md) | `⬜ Pendiente` |
-| 7 | Pruebas y Optimización | [07-pruebas-optimizacion.md](./07-pruebas-optimizacion.md) | `⬜ Pendiente` |
-| 8 | Despliegue y Uso | [08-despliegue-uso.md](./08-despliegue-uso.md) | `⬜ Pendiente` |
+| 1 | Stack Tecnológico y Arquitectura | [01-stack-tecnologico.md](./01-stack-tecnologico.md) | `✅ Completado` |
+| 2 | Librerías Gráficas y Evaluación | [02-librerias-graficas.md](./02-librerias-graficas.md) | `✅ Completado` |
+| 3 | Configuración del Proyecto y Fundación | [03-configuracion-proyecto.md](./03-configuracion-proyecto.md) | `✅ Completado` |
+| 4 | Componentes de Gráficos y Formularios | [04-componentes-graficos.md](./04-componentes-graficos.md) | `✅ Completado` |
+| 5 | Diseño UI/UX e Interacciones | [05-diseno-ui-ux.md](./05-diseno-ui-ux.md) | `✅ Completado` |
+| 6 | Exportación y Descarga | [06-exportacion-descarga.md](./06-exportacion-descarga.md) | `✅ Completado` |
+| 7 | Pruebas y Optimización | [07-pruebas-optimizacion.md](./07-pruebas-optimizacion.md) | `✅ Completado` |
+| 8 | Despliegue y Uso | [08-despliegue-uso.md](./08-despliegue-uso.md) | `✅ Completado` |
 
 ### Leyenda de Estados
 

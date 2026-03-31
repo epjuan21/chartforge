@@ -1,7 +1,7 @@
 # Fase 2: Librerías Gráficas y Evaluación
 
-> **Estado General:** ⬜ Pendiente  
-> **Última actualización:** 2026-03-29
+> **Estado General:** ✅ Completado
+> **Última actualización:** 2026-03-30
 
 ---
 
@@ -9,12 +9,12 @@
 
 | # | Tarea | Estado | Fecha Inicio | Fecha Fin | Notas |
 |---|-------|--------|-------------|-----------|-------|
-| 2.1 | Investigar opciones de librerías gráficas | ⬜ Pendiente | — | — | |
-| 2.2 | Evaluar Recharts como opción principal | ⬜ Pendiente | — | — | |
-| 2.3 | Evaluar alternativas (Chart.js, Nivo, Victory) | ⬜ Pendiente | — | — | |
-| 2.4 | Seleccionar librería definitiva | ⬜ Pendiente | — | — | |
-| 2.5 | Evaluar librerías auxiliares (color picker, exportación) | ⬜ Pendiente | — | — | |
-| 2.6 | Crear prueba de concepto (PoC) con la librería elegida | ⬜ Pendiente | — | — | |
+| 2.1 | Investigar opciones de librerías gráficas | ✅ | 2026-03-29 | 2026-03-29 | Recharts, Chart.js, Nivo, Victory evaluadas |
+| 2.2 | Evaluar Recharts como opción principal | ✅ | 2026-03-29 | 2026-03-29 | Score 36/40 — mejor opción para React + SVG |
+| 2.3 | Evaluar alternativas (Chart.js, Nivo, Victory) | ✅ | 2026-03-29 | 2026-03-29 | Ver matriz comparativa en el doc |
+| 2.4 | Seleccionar librería definitiva | ✅ | 2026-03-29 | 2026-03-29 | Recharts v3.8.1 seleccionada |
+| 2.5 | Evaluar librerías auxiliares (color picker, exportación) | ✅ | 2026-03-29 | 2026-03-29 | react-colorful, html-to-image, jsPDF, lucide-react |
+| 2.6 | Crear prueba de concepto (PoC) con la librería elegida | ✅ | 2026-03-30 | 2026-03-30 | PoC implícita en la implementación de la Fase 4 |
 
 ---
 

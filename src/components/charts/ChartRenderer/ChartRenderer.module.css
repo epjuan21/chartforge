@@ -1,0 +1,21 @@
+.container {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  padding: 1.5rem 1rem 1rem;
+}
+
+.header {
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.title {
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 0.3rem 0 0;
+  opacity: 0.75;
+}

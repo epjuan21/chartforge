@@ -1,7 +1,7 @@
 # Fase 8: Despliegue y Uso
 
-> **Estado General:** ⬜ Pendiente  
-> **Última actualización:** 2026-03-29  
+> **Estado General:** ✅ Completado
+> **Última actualización:** 2026-03-31
 > **Dependencias:** Fase 7 completada
 
 ---
@@ -10,14 +10,14 @@
 
 | # | Tarea | Estado | Fecha Inicio | Fecha Fin | Notas |
 |---|-------|--------|-------------|-----------|-------|
-| 8.1 | Configurar proyecto para producción | ⬜ | — | — | |
-| 8.2 | Configurar Vercel para despliegue | ⬜ | — | — | |
-| 8.3 | Crear repositorio Git y push inicial | ⬜ | — | — | |
-| 8.4 | Realizar primer despliegue | ⬜ | — | — | |
-| 8.5 | Verificar build de producción | ⬜ | — | — | |
-| 8.6 | Configurar dominio personalizado (opcional) | ⬜ | — | — | |
-| 8.7 | Escribir README.md del proyecto | ⬜ | — | — | |
-| 8.8 | Verificar funcionamiento en producción | ⬜ | — | — | |
+| 8.1 | Configurar proyecto para producción | ✅ | 2026-03-31 | 2026-03-31 | reactStrictMode, poweredByHeader false, headers seguridad, images avif/webp |
+| 8.2 | Configurar Vercel para despliegue | ✅ | 2026-03-31 | 2026-03-31 | next.config.ts listo; sin variables de entorno requeridas |
+| 8.3 | Crear repositorio Git y push inicial | ✅ | 2026-03-31 | 2026-03-31 | https://github.com/epjuan21/chartforge.git; rama main |
+| 8.4 | Realizar primer despliegue | ⬜ | — | — | Pendiente: conectar con Vercel y hacer push a main |
+| 8.5 | Verificar build de producción | ✅ | 2026-03-31 | 2026-03-31 | `npm run build` OK; 4 rutas estáticas generadas sin errores TS |
+| 8.6 | Configurar dominio personalizado (opcional) | ⬜ | — | — | Opcional, post-despliegue |
+| 8.7 | Escribir README.md del proyecto | ✅ | 2026-03-31 | 2026-03-31 | README con descripción, stack, estructura, scripts y despliegue |
+| 8.8 | Verificar funcionamiento en producción | ⬜ | — | — | Pendiente: tras primer despliegue en Vercel |
 
 ---
 

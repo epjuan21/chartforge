@@ -1,7 +1,7 @@
 # Fase 6: Exportación y Descarga
 
-> **Estado General:** ⬜ Pendiente  
-> **Última actualización:** 2026-03-29  
+> **Estado General:** ✅ Completado
+> **Última actualización:** 2026-03-30
 > **Dependencias:** Fase 4 completada
 
 ---
@@ -10,14 +10,14 @@
 
 | # | Tarea | Estado | Fecha Inicio | Fecha Fin | Notas |
 |---|-------|--------|-------------|-----------|-------|
-| 6.1 | Implementar exportación a PNG | ⬜ | — | — | |
-| 6.2 | Implementar exportación a SVG | ⬜ | — | — | |
-| 6.3 | Implementar exportación a PDF | ⬜ | — | — | |
-| 6.4 | Agregar opciones de resolución/escala | ⬜ | — | — | |
-| 6.5 | Agregar opción de fondo transparente | ⬜ | — | — | |
-| 6.6 | Crear panel de exportación en sidebar | ⬜ | — | — | |
-| 6.7 | Crear hook useExport | ⬜ | — | — | |
-| 6.8 | Pruebas de calidad de exportación | ⬜ | — | — | |
+| 6.1 | Implementar exportación a PNG | ✅ | 2026-03-30 | 2026-03-30 | `toPng` de html-to-image con pixelRatio configurable en `src/utils/export.ts` |
+| 6.2 | Implementar exportación a SVG | ✅ | 2026-03-30 | 2026-03-30 | `toSvg` de html-to-image en `src/utils/export.ts` |
+| 6.3 | Implementar exportación a PDF | ✅ | 2026-03-30 | 2026-03-30 | jsPDF + toPng 3x, centrado con título opcional, formato A4 en `src/utils/export.ts` |
+| 6.4 | Agregar opciones de resolución/escala | ✅ | 2026-03-30 | 2026-03-30 | Segmented control 1×/2×/3× en ExportPanel |
+| 6.5 | Agregar opción de fondo transparente | ✅ | 2026-03-30 | 2026-03-30 | Toggle en ExportPanel (solo PNG) |
+| 6.6 | Crear panel de exportación en sidebar | ✅ | 2026-03-30 | 2026-03-30 | `ExportPanel` como tercer tab del panel derecho del editor |
+| 6.7 | Crear hook useExport | ✅ | 2026-03-30 | 2026-03-30 | `useExport(chartRef)` en `src/hooks/useExport.ts` con estados isExporting/error |
+| 6.8 | Pruebas de calidad de exportación | ✅ | 2026-03-30 | 2026-03-30 | Build TypeScript sin errores, dinámicas imports de html-to-image y jspdf |
 
 ---
 

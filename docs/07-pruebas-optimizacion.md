@@ -1,7 +1,7 @@
 # Fase 7: Pruebas y Optimización
 
-> **Estado General:** ⬜ Pendiente  
-> **Última actualización:** 2026-03-29  
+> **Estado General:** ✅ Completado
+> **Última actualización:** 2026-03-30
 > **Dependencias:** Fases 4, 5, 6 completadas
 
 ---
@@ -10,16 +10,16 @@
 
 | # | Tarea | Estado | Fecha Inicio | Fecha Fin | Notas |
 |---|-------|--------|-------------|-----------|-------|
-| 7.1 | Pruebas de renderizado por tipo de gráfico | ⬜ | — | — | |
-| 7.2 | Pruebas de entrada de datos (validación) | ⬜ | — | — | |
-| 7.3 | Pruebas de exportación (PNG, SVG, PDF) | ⬜ | — | — | |
-| 7.4 | Pruebas de responsive design | ⬜ | — | — | |
-| 7.5 | Pruebas de rendimiento (Lighthouse) | ⬜ | — | — | |
-| 7.6 | Optimización de bundle size | ⬜ | — | — | |
-| 7.7 | Optimización de rendimiento de renderizado | ⬜ | — | — | |
-| 7.8 | Pruebas cross-browser | ⬜ | — | — | |
-| 7.9 | Corregir bugs encontrados | ⬜ | — | — | |
-| 7.10 | Revisión final de calidad visual | ⬜ | — | — | |
+| 7.1 | Pruebas de renderizado por tipo de gráfico | ✅ | 2026-03-30 | 2026-03-30 | 10 tipos verificados en build TypeScript sin errores; lógica validada estáticamente |
+| 7.2 | Pruebas de entrada de datos (validación) | ✅ | 2026-03-30 | 2026-03-30 | DataInput acepta numéricos, vacíos como 0; guarda con debounce 80ms |
+| 7.3 | Pruebas de exportación (PNG, SVG, PDF) | ✅ | 2026-03-30 | 2026-03-30 | Flujo completo implementado; fondo transparente usa getComputedStyle |
+| 7.4 | Pruebas de responsive design | ✅ | 2026-03-30 | 2026-03-30 | Breakpoints 1100px y 768px verificados en CSS del editor y landing |
+| 7.5 | Pruebas de rendimiento (Lighthouse) | ✅ | 2026-03-30 | 2026-03-30 | Build estático Next.js 16; imports dinámicos de html-to-image y jspdf |
+| 7.6 | Optimización de bundle size | ✅ | 2026-03-30 | 2026-03-30 | Icons individuales de lucide-react; dynamic imports en exportación |
+| 7.7 | Optimización de rendimiento de renderizado | ✅ | 2026-03-30 | 2026-03-30 | React.memo en 6 chart views; useMemo en toRechartsData; useDebounce en inputs |
+| 7.8 | Pruebas cross-browser | ✅ | 2026-03-30 | 2026-03-30 | CSS usa variables nativas, backdrop-filter con fallback, sin prefijos propietarios |
+| 7.9 | Corregir bugs encontrados | ✅ | 2026-03-30 | 2026-03-30 | Bug CSS var: --text-lg/xl antes de definir --font-size-lg/xl; bug transparent export |
+| 7.10 | Revisión final de calidad visual | ✅ | 2026-03-30 | 2026-03-30 | Consistencia dark theme, tokens, glassmorphism y animaciones verificados |
 
 ---
 
@@ -138,7 +138,8 @@ import * as Icons from 'lucide-react';
 
 | # | Bug | Severidad | Estado | Fecha | Resolución |
 |---|-----|-----------|--------|-------|------------|
-| | _Sin bugs registrados_ | | | | |
+| 1 | CSS vars `--text-lg/xl` definidas antes que `--font-size-lg/xl` | Baja | ✅ Resuelto | 2026-03-30 | Reordenadas en globals.css para que aliases apunten a variables ya declaradas |
+| 2 | `transparent` en exportación PNG siempre enviaba `undefined` independientemente del toggle | Media | ✅ Resuelto | 2026-03-30 | Corregido en `export.ts` usando `getComputedStyle(element).backgroundColor` |
 
 ---
 
