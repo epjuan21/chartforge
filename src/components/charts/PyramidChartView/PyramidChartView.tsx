@@ -11,7 +11,6 @@ import {
   Legend,
   ResponsiveContainer,
   LabelList,
-  Cell,
   ReferenceLine,
 } from 'recharts';
 import type { BaseChartProps } from '../shared';
