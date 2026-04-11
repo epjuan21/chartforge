@@ -145,7 +145,7 @@ export default function EditorClient() {
 
         {/* Área del gráfico */}
         <div className={styles.canvasBody}>
-          <div className={styles.canvasInner}>
+          <div className={styles.canvasInner} style={{ maxWidth: config.width }}>
             <ChartRenderer
               data={data}
               config={config}
