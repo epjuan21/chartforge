@@ -20,13 +20,14 @@ import { tooltipStyle } from '../shared';
  * Pirámide poblacional: barras horizontales opuestas.
  * Serie 0 (ej. Hombre) se muestra hacia la izquierda (valores negativos internos).
  * Serie 1 (ej. Mujer) se muestra hacia la derecha (valores positivos).
- * Ambas barras comparten stackId para quedar alineadas en la misma fila.
+ * Se usa barGap negativo para superponer ambas barras en la misma fila.
  */
 function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
   const leftSeries = data.series[0];
   const rightSeries = data.series[1];
   const leftColor = leftSeries?.color ?? colors[0];
   const rightColor = rightSeries?.color ?? colors[1 % colors.length];
+  const barSize = style.barThickness ?? 20;
 
   // Construir datos: serie izquierda con valores negativos, derecha positivos
   const chartData = useMemo(() => {
@@ -65,7 +66,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
     return abs % 1 === 0 ? `${abs}` : `${abs.toFixed(1)}`;
   }, []);
 
-  // Tooltip: valores absolutos sin %
+  // Tooltip: valores absolutos
   const formatTooltipValue = useCallback(
     (value: unknown) => {
       const num = typeof value === 'number' ? value : Number(value ?? 0);
@@ -74,7 +75,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
     [],
   );
 
-  // Label para la serie izquierda (valores negativos): se posiciona en la punta izquierda
+  // Label para la serie izquierda (valores negativos)
   const renderLeftLabel = useCallback(
     (props: { x?: number; y?: number; width?: number; height?: number; value?: number | string; [k: string]: unknown }) => {
       const x = Number(props.x ?? 0);
@@ -84,8 +85,9 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
       const value = Number(props.value ?? 0);
       const abs = Math.abs(value);
       if (abs === 0) return null;
-      // width es negativo para barras a la izquierda, la punta está en x + width
-      const tipX = width < 0 ? x + width - 4 : x - 4;
+      // Para barras negativas: x es el inicio (lado derecho en 0), width es negativo
+      // La punta izquierda está en x + width
+      const tipX = x + width - 4;
       return (
         <text
           x={tipX}
@@ -103,7 +105,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
     [style.labelColor, style.labelFontSize, style.fontFamily],
   );
 
-  // Label para la serie derecha (valores positivos): se posiciona en la punta derecha
+  // Label para la serie derecha (valores positivos)
   const renderRightLabel = useCallback(
     (props: { x?: number; y?: number; width?: number; height?: number; value?: number | string; [k: string]: unknown }) => {
       const x = Number(props.x ?? 0);
@@ -131,8 +133,6 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
     [style.labelColor, style.labelFontSize, style.fontFamily],
   );
 
-  const barSize = style.barThickness ?? 20;
-
   return (
     <ResponsiveContainer width="100%" height={config.height}>
       <BarChart
@@ -140,7 +140,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
         layout="vertical"
         margin={{ top: 20, right: 50, bottom: 20, left: 10 }}
         barSize={barSize}
-        barGap={0}
+        barGap={-barSize}
         barCategoryGap="8%"
       >
         {config.showGrid && (
@@ -198,7 +198,6 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
             dataKey={leftSeries.name}
             fill={leftColor}
             radius={[style.borderRadius, 0, 0, style.borderRadius]}
-            stackId="pyramid"
             isAnimationActive={config.animationEnabled}
           >
             {style.showDataLabels && (
@@ -211,7 +210,6 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
             dataKey={rightSeries.name}
             fill={rightColor}
             radius={[0, style.borderRadius, style.borderRadius, 0]}
-            stackId="pyramid"
             isAnimationActive={config.animationEnabled}
           >
             {style.showDataLabels && (
