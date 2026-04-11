@@ -69,10 +69,13 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
   }, []);
 
   // Formateador del tooltip: muestra valores absolutos
-  const formatTooltipValue = useCallback((value: number | string | undefined) => {
-    const num = typeof value === 'number' ? value : Number(value ?? 0);
-    return `${Math.abs(num).toFixed(1)}%`;
-  }, []);
+  const formatTooltipValue = useCallback(
+    (value: unknown) => {
+      const num = typeof value === 'number' ? value : Number(value ?? 0);
+      return `${Math.abs(num).toFixed(1)}%`;
+    },
+    [],
+  );
 
   // Label personalizado que muestra el valor absoluto
   const renderLabel = useCallback(
@@ -141,7 +144,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
           <Tooltip
             contentStyle={tooltipStyle(style)}
             cursor={{ fill: 'rgba(128,128,128,0.06)' }}
-            formatter={formatTooltipValue}
+            formatter={formatTooltipValue as never}
           />
         )}
         {config.showLegend && (
