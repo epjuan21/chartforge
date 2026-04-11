@@ -79,14 +79,12 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
 
   // Label personalizado que muestra el valor absoluto
   const renderLabel = useCallback(
-    (props: Record<string, unknown>) => {
-      const { x, y, width, height, value } = props as {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-        value: number;
-      };
+    (props: { x?: number; y?: number; width?: number; height?: number; value?: number | string; [k: string]: unknown }) => {
+      const x = Number(props.x ?? 0);
+      const y = Number(props.y ?? 0);
+      const width = Number(props.width ?? 0);
+      const height = Number(props.height ?? 0);
+      const value = Number(props.value ?? 0);
       const abs = Math.abs(value);
       if (abs === 0) return null;
       const isLeft = value < 0;
@@ -175,7 +173,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
             maxBarSize={28}
           >
             {style.showDataLabels && (
-              <LabelList content={renderLabel} />
+              <LabelList content={renderLabel as never} />
             )}
           </Bar>
         )}
@@ -188,7 +186,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
             maxBarSize={28}
           >
             {style.showDataLabels && (
-              <LabelList content={renderLabel} />
+              <LabelList content={renderLabel as never} />
             )}
           </Bar>
         )}
