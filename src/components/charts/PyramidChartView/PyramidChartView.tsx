@@ -197,7 +197,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
           <Bar
             dataKey={leftSeries.name}
             fill={leftColor}
-            radius={[style.borderRadius, 0, 0, style.borderRadius]}
+            radius={[0, style.borderRadius, style.borderRadius, 0]}
             isAnimationActive={config.animationEnabled}
           >
             {style.showDataLabels && (
