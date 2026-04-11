@@ -9,7 +9,8 @@ export type ChartType =
   | 'pie'
   | 'doughnut'
   | 'radar'
-  | 'composed';
+  | 'composed'
+  | 'pyramid';
 
 // Una serie de datos (nombre + color asignado)
 export interface DataSeries {

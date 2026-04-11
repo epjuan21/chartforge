@@ -16,6 +16,7 @@ import {
   CircleDot,
   Radar,
   Combine,
+  Triangle,
 } from 'lucide-react';
 import { useChartData, useChartConfig, useChartStyle, saveEditorState, useExport } from '@/hooks';
 import { ChartRenderer } from '@/components/charts';
@@ -42,6 +43,7 @@ const TYPE_ICONS: Record<string, React.ReactNode> = {
   doughnut: <CircleDot size={15} />,
   radar: <Radar size={15} />,
   composed: <Combine size={15} />,
+  pyramid: <Triangle size={15} />,
 };
 
 export default function EditorClient() {

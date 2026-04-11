@@ -5,4 +5,5 @@ export { default as AreaChartView } from './AreaChartView';
 export { default as PieChartView } from './PieChartView';
 export { default as RadarChartView } from './RadarChartView';
 export { default as ComposedChartView } from './ComposedChartView';
+export { default as PyramidChartView } from './PyramidChartView';
 export type { BaseChartProps } from './shared';

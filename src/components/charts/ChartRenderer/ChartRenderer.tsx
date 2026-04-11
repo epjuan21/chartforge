@@ -7,6 +7,7 @@ import AreaChartView from '../AreaChartView';
 import PieChartView from '../PieChartView';
 import RadarChartView from '../RadarChartView';
 import ComposedChartView from '../ComposedChartView';
+import PyramidChartView from '../PyramidChartView';
 import styles from './ChartRenderer.module.css';
 
 interface ChartRendererProps extends BaseChartProps {
@@ -33,6 +34,8 @@ export default function ChartRenderer({ data, config, style, colors, chartRef }:
         return <RadarChartView {...props} />;
       case 'composed':
         return <ComposedChartView {...props} />;
+      case 'pyramid':
+        return <PyramidChartView {...props} />;
     }
   }
 

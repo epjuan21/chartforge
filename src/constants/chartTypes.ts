@@ -68,4 +68,10 @@ export const CHART_TYPES: ChartTypeOption[] = [
     icon: 'Combine',
     description: 'Combina barras y líneas',
   },
+  {
+    id: 'pyramid',
+    label: 'Pirámide Poblacional',
+    icon: 'Triangle',
+    description: 'Distribución por edad y sexo',
+  },
 ];
