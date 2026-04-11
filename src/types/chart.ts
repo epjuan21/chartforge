@@ -58,4 +58,5 @@ export interface ChartStyle {
   customColors: string[]; // Colores personalizados (override paleta)
   opacity: number; // Opacidad de relleno (área, torta)
   showDataLabels: boolean; // Mostrar valores sobre las barras/puntos
+  barThickness: number; // Grosor de las barras en pirámide poblacional
 }

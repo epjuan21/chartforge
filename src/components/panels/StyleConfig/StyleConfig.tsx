@@ -271,6 +271,16 @@ export default function StyleConfig({
           max={100}
           unit="%"
         />
+        {config.type === 'pyramid' && (
+          <Slider
+            label="Grosor de barras"
+            value={style.barThickness}
+            onChange={(v) => onUpdateStyle({ barThickness: v })}
+            min={8}
+            max={40}
+            unit="px"
+          />
+        )}
       </Section>
     </div>
   );

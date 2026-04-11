@@ -146,6 +146,7 @@ export const DEFAULT_CHART_STYLE: ChartStyle = {
   customColors: [],
   opacity: 0.8,
   showDataLabels: false,
+  barThickness: 20,
 };
 
 /** Preset de estilo para gráficos con fondo claro (presentaciones, informes, modo día) */

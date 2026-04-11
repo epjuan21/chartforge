@@ -20,14 +20,16 @@ import { tooltipStyle } from '../shared';
  * Pirámide poblacional: barras horizontales opuestas.
  * Serie 0 (ej. Hombre) se muestra hacia la izquierda (valores negativos internos).
  * Serie 1 (ej. Mujer) se muestra hacia la derecha (valores positivos).
- * Los labels siempre muestran el valor absoluto.
+ * Ambas barras comparten stackId para quedar alineadas en la misma fila.
  */
 function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
-  // Construir datos para Recharts: la primera serie usa valores negativos
-  const chartData = useMemo(() => {
-    const leftSeries = data.series[0];
-    const rightSeries = data.series[1];
+  const leftSeries = data.series[0];
+  const rightSeries = data.series[1];
+  const leftColor = leftSeries?.color ?? colors[0];
+  const rightColor = rightSeries?.color ?? colors[1 % colors.length];
 
+  // Construir datos: serie izquierda con valores negativos, derecha positivos
+  const chartData = useMemo(() => {
     return data.categories.map((cat, ci) => {
       const point: Record<string, string | number> = { category: cat };
       if (leftSeries) {
@@ -38,9 +40,9 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
       }
       return point;
     });
-  }, [data]);
+  }, [data, leftSeries, rightSeries]);
 
-  // Calcular el dominio simétrico del eje X
+  // Dominio simétrico del eje X
   const maxValue = useMemo(() => {
     let max = 0;
     for (let si = 0; si < data.values.length; si++) {
@@ -57,28 +59,23 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
     fontFamily: style.fontFamily,
   };
 
-  const leftSeries = data.series[0];
-  const rightSeries = data.series[1];
-  const leftColor = leftSeries?.color ?? colors[0];
-  const rightColor = rightSeries?.color ?? colors[1 % colors.length];
-
-  // Formateador para el eje X: muestra valores absolutos con sufijo %
+  // Eje X: valores absolutos sin sufijo %
   const formatTick = useCallback((value: number) => {
     const abs = Math.abs(value);
-    return abs % 1 === 0 ? `${abs}%` : `${abs.toFixed(1)}%`;
+    return abs % 1 === 0 ? `${abs}` : `${abs.toFixed(1)}`;
   }, []);
 
-  // Formateador del tooltip: muestra valores absolutos
+  // Tooltip: valores absolutos sin %
   const formatTooltipValue = useCallback(
     (value: unknown) => {
       const num = typeof value === 'number' ? value : Number(value ?? 0);
-      return `${Math.abs(num).toFixed(1)}%`;
+      return `${Math.abs(num)}`;
     },
     [],
   );
 
-  // Label personalizado que muestra el valor absoluto
-  const renderLabel = useCallback(
+  // Label para la serie izquierda (valores negativos): se posiciona en la punta izquierda
+  const renderLeftLabel = useCallback(
     (props: { x?: number; y?: number; width?: number; height?: number; value?: number | string; [k: string]: unknown }) => {
       const x = Number(props.x ?? 0);
       const y = Number(props.y ?? 0);
@@ -87,32 +84,64 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
       const value = Number(props.value ?? 0);
       const abs = Math.abs(value);
       if (abs === 0) return null;
-      const isLeft = value < 0;
-      const labelX = isLeft ? x - 4 : x + width + 4;
+      // width es negativo para barras a la izquierda, la punta está en x + width
+      const tipX = width < 0 ? x + width - 4 : x - 4;
       return (
         <text
-          x={labelX}
+          x={tipX}
           y={y + height / 2}
-          textAnchor={isLeft ? 'end' : 'start'}
+          textAnchor="end"
           dominantBaseline="central"
           fill={style.labelColor}
           fontSize={style.labelFontSize - 1}
           fontFamily={style.fontFamily}
         >
-          {abs % 1 === 0 ? `${abs}%` : `${abs.toFixed(1)}%`}
+          {abs % 1 === 0 ? abs : abs.toFixed(1)}
         </text>
       );
     },
     [style.labelColor, style.labelFontSize, style.fontFamily],
   );
 
+  // Label para la serie derecha (valores positivos): se posiciona en la punta derecha
+  const renderRightLabel = useCallback(
+    (props: { x?: number; y?: number; width?: number; height?: number; value?: number | string; [k: string]: unknown }) => {
+      const x = Number(props.x ?? 0);
+      const y = Number(props.y ?? 0);
+      const width = Number(props.width ?? 0);
+      const height = Number(props.height ?? 0);
+      const value = Number(props.value ?? 0);
+      const abs = Math.abs(value);
+      if (abs === 0) return null;
+      const tipX = x + width + 4;
+      return (
+        <text
+          x={tipX}
+          y={y + height / 2}
+          textAnchor="start"
+          dominantBaseline="central"
+          fill={style.labelColor}
+          fontSize={style.labelFontSize - 1}
+          fontFamily={style.fontFamily}
+        >
+          {abs % 1 === 0 ? abs : abs.toFixed(1)}
+        </text>
+      );
+    },
+    [style.labelColor, style.labelFontSize, style.fontFamily],
+  );
+
+  const barSize = style.barThickness ?? 20;
+
   return (
     <ResponsiveContainer width="100%" height={config.height}>
       <BarChart
         data={chartData}
         layout="vertical"
-        margin={{ top: 20, right: 40, bottom: 20, left: 10 }}
-        barCategoryGap="12%"
+        margin={{ top: 20, right: 50, bottom: 20, left: 10 }}
+        barSize={barSize}
+        barGap={0}
+        barCategoryGap="8%"
       >
         {config.showGrid && (
           <CartesianGrid
@@ -169,11 +198,11 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
             dataKey={leftSeries.name}
             fill={leftColor}
             radius={[style.borderRadius, 0, 0, style.borderRadius]}
+            stackId="pyramid"
             isAnimationActive={config.animationEnabled}
-            maxBarSize={28}
           >
             {style.showDataLabels && (
-              <LabelList content={renderLabel as never} />
+              <LabelList content={renderLeftLabel as never} />
             )}
           </Bar>
         )}
@@ -182,11 +211,11 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
             dataKey={rightSeries.name}
             fill={rightColor}
             radius={[0, style.borderRadius, style.borderRadius, 0]}
+            stackId="pyramid"
             isAnimationActive={config.animationEnabled}
-            maxBarSize={28}
           >
             {style.showDataLabels && (
-              <LabelList content={renderLabel as never} />
+              <LabelList content={renderRightLabel as never} />
             )}
           </Bar>
         )}
