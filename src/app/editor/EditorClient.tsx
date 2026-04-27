@@ -17,10 +17,18 @@ import {
   Radar,
   Combine,
   Triangle,
+  Table as TableIcon,
 } from 'lucide-react';
-import { useChartData, useChartConfig, useChartStyle, saveEditorState, useExport } from '@/hooks';
+import {
+  useChartData,
+  useChartConfig,
+  useChartStyle,
+  useTableData,
+  saveEditorState,
+  useExport,
+} from '@/hooks';
 import { ChartRenderer } from '@/components/charts';
-import { DataInput, StyleConfig, ExportPanel } from '@/components/panels';
+import { DataInput, TableDataInput, StyleConfig, ExportPanel } from '@/components/panels';
 import { Tabs, ThemeToggle } from '@/components/ui';
 import { CHART_TYPES } from '@/constants';
 import type { ChartType, ExportOptions } from '@/types';
@@ -44,6 +52,7 @@ const TYPE_ICONS: Record<string, React.ReactNode> = {
   radar: <Radar size={15} />,
   composed: <Combine size={15} />,
   pyramid: <Triangle size={15} />,
+  table: <TableIcon size={15} />,
 };
 
 export default function EditorClient() {
@@ -61,18 +70,36 @@ export default function EditorClient() {
     removeSeries,
     setValue,
   } = useChartData('bar');
+  const {
+    tableData,
+    loadExample: loadTableExample,
+    replaceFromText: replaceTableFromText,
+    setCell: setTableCell,
+    addRow: addTableRow,
+    removeRow: removeTableRow,
+    addColumn: addTableColumn,
+    removeColumn: removeTableColumn,
+    setColumnLabel: setTableColumnLabel,
+    setColumnType: setTableColumnType,
+    setColumnAlign: setTableColumnAlign,
+    setShowTotal: setTableShowTotal,
+    setTotalLabel: setTableTotalLabel,
+    clearAll: clearTable,
+  } = useTableData();
   const { config, setType, update: updateConfig } = useChartConfig();
   const { style, activeColors, setPalette, update: updateStyle } = useChartStyle();
   const { isExporting, isCopying, error: exportError, runExport, runCopy } = useExport(chartRef);
 
+  const isTable = config.type === 'table';
+
   // Sincroniza estado con localStorage para que /preview lo pueda leer
   useEffect(() => {
-    saveEditorState({ data, config, style, colors: activeColors });
-  }, [data, config, style, activeColors]);
+    saveEditorState({ data, config, style, colors: activeColors, tableData });
+  }, [data, config, style, activeColors, tableData]);
 
   function handleTypeChange(type: ChartType) {
     setType(type);
-    loadExample(type);
+    if (type !== 'table') loadExample(type);
   }
 
   function handleExport(options: ExportOptions) {
@@ -152,6 +179,7 @@ export default function EditorClient() {
               style={style}
               colors={activeColors}
               chartRef={chartRef}
+              tableData={tableData}
             />
           </div>
         </div>
@@ -163,20 +191,38 @@ export default function EditorClient() {
           <Tabs tabs={PANEL_TABS} activeTab={panelTab} onChange={setPanelTab} />
         </div>
         <div className={styles.panelContent}>
-          {panelTab === 'data' && (
-            <DataInput
-              data={data}
-              chartType={config.type}
-              onSetCategory={setCategory}
-              onAddCategory={addCategory}
-              onRemoveCategory={removeCategory}
-              onSetSeries={setSeries}
-              onAddSeries={addSeries}
-              onRemoveSeries={removeSeries}
-              onSetValue={setValue}
-              onLoadExample={loadExample}
-            />
-          )}
+          {panelTab === 'data' &&
+            (isTable ? (
+              <TableDataInput
+                tableData={tableData}
+                onReplaceFromText={replaceTableFromText}
+                onSetCell={setTableCell}
+                onAddRow={addTableRow}
+                onRemoveRow={removeTableRow}
+                onAddColumn={addTableColumn}
+                onRemoveColumn={removeTableColumn}
+                onSetColumnLabel={setTableColumnLabel}
+                onSetColumnType={setTableColumnType}
+                onSetColumnAlign={setTableColumnAlign}
+                onSetShowTotal={setTableShowTotal}
+                onSetTotalLabel={setTableTotalLabel}
+                onLoadExample={loadTableExample}
+                onClearAll={clearTable}
+              />
+            ) : (
+              <DataInput
+                data={data}
+                chartType={config.type}
+                onSetCategory={setCategory}
+                onAddCategory={addCategory}
+                onRemoveCategory={removeCategory}
+                onSetSeries={setSeries}
+                onAddSeries={addSeries}
+                onRemoveSeries={removeSeries}
+                onSetValue={setValue}
+                onLoadExample={loadExample}
+              />
+            ))}
           {panelTab === 'style' && (
             <StyleConfig
               config={config}

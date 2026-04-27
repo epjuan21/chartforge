@@ -74,4 +74,10 @@ export const CHART_TYPES: ChartTypeOption[] = [
     icon: 'Triangle',
     description: 'Distribución por edad y sexo',
   },
+  {
+    id: 'table',
+    label: 'Tabla',
+    icon: 'Table',
+    description: 'Tabla configurable con pegado desde portapapeles',
+  },
 ];

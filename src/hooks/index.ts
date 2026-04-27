@@ -1,4 +1,5 @@
 export { useChartData } from './useChartData';
+export { useTableData } from './useTableData';
 export { useChartConfig } from './useChartConfig';
 export { useChartStyle } from './useChartStyle';
 export { saveEditorState, loadEditorState, useEditorStateListener } from './useEditorStore';

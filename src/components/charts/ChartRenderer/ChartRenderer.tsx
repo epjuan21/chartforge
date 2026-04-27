@@ -1,6 +1,7 @@
 'use client';
 
 import type { BaseChartProps } from '../shared';
+import type { TableData } from '@/types';
 import BarChartView from '../BarChartView';
 import LineChartView from '../LineChartView';
 import AreaChartView from '../AreaChartView';
@@ -8,14 +9,27 @@ import PieChartView from '../PieChartView';
 import RadarChartView from '../RadarChartView';
 import ComposedChartView from '../ComposedChartView';
 import PyramidChartView from '../PyramidChartView';
+import TableView from '../TableView';
 import styles from './ChartRenderer.module.css';
 
 interface ChartRendererProps extends BaseChartProps {
   chartRef?: React.RefObject<HTMLDivElement | null>;
+  tableData?: TableData;
 }
 
-export default function ChartRenderer({ data, config, style, colors, chartRef }: ChartRendererProps) {
+export default function ChartRenderer({
+  data,
+  config,
+  style,
+  colors,
+  chartRef,
+  tableData,
+}: ChartRendererProps) {
   function renderChart() {
+    if (config.type === 'table') {
+      if (!tableData) return null;
+      return <TableView tableData={tableData} style={style} />;
+    }
     const props = { data, config, style, colors };
     switch (config.type) {
       case 'bar':

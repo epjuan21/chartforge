@@ -1,4 +1,4 @@
-import type { ChartData, ChartConfig, ChartStyle, ChartType } from '@/types';
+import type { ChartData, ChartConfig, ChartStyle, ChartType, TableData } from '@/types';
 
 // Datos de ejemplo por tipo de gráfico
 const BASE_CATEGORIES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'];
@@ -114,6 +114,33 @@ export const DEFAULT_CHART_DATA: Record<ChartType, ChartData> = {
       [3.4, 3.5, 3.7, 4.1, 4.4, 4.4, 4.0, 3.8, 3.4, 3.1, 3.0, 2.8, 2.3, 1.7, 1.3, 0.8, 0.5, 0.3, 0.1, 0.0, 0.0],
     ],
   },
+  // Placeholder — la vista de tabla usa TableData en lugar de ChartData
+  table: {
+    categories: [],
+    series: [],
+    values: [],
+  },
+};
+
+// Datos de ejemplo para el tipo Tabla (replica el ejemplo CIE10 / Diagnóstico / Total)
+export const DEFAULT_TABLE_DATA: TableData = {
+  columns: [
+    { id: 'c1', label: 'CIE10', type: 'text', align: 'left' },
+    { id: 'c2', label: 'Diagnóstico', type: 'text', align: 'left' },
+    { id: 'c3', label: 'Total', type: 'number', align: 'right' },
+  ],
+  rows: [
+    ['R101', 'Dolor abdominal localizado en parte superior', 14],
+    ['R074', 'Dolor en el pecho no especificado', 11],
+    ['R104', 'Otros dolores abdominales y los no especificados', 11],
+    ['V299', 'Motociclista lesionado en accidente de tránsito', 10],
+    ['S610', 'Herida de dedo(s) de la mano sin daño de la(s) uña(s)', 9],
+    ['R51X', 'Cefalea', 8],
+    ['G442', 'Cefalea debida a tensión', 7],
+    ['J441', 'Enfermedad pulmonar obstructiva crónica', 7],
+  ],
+  showTotal: true,
+  totalLabel: 'Total',
 };
 
 export const DEFAULT_CHART_CONFIG: ChartConfig = {
@@ -147,6 +174,17 @@ export const DEFAULT_CHART_STYLE: ChartStyle = {
   opacity: 0.8,
   showDataLabels: false,
   barThickness: 20,
+  tableHeaderBg: '#2d2d44',
+  tableHeaderColor: '#f0f0f5',
+  tableRowBg: '#1a1a2e',
+  tableRowAltBg: '#22223a',
+  tableRowColor: '#d0d0e0',
+  tableBorderColor: '#3a3a55',
+  tableShowBorders: true,
+  tableShowZebra: true,
+  tableCellPadding: 10,
+  tableTotalBg: '#2d2d44',
+  tableTotalColor: '#f0f0f5',
 };
 
 /** Preset de estilo para gráficos con fondo claro (presentaciones, informes, modo día) */
@@ -156,6 +194,14 @@ export const LIGHT_CHART_STYLE: Partial<ChartStyle> = {
   labelColor: '#4a4a60',
   axisColor: '#8080a0',
   gridColor: '#e4e4ef',
+  tableHeaderBg: '#f4f4f8',
+  tableHeaderColor: '#18181f',
+  tableRowBg: '#ffffff',
+  tableRowAltBg: '#f9f9fc',
+  tableRowColor: '#1f1f2c',
+  tableBorderColor: '#e4e4ef',
+  tableTotalBg: '#eceaf6',
+  tableTotalColor: '#1f1f2c',
 };
 
 /** Preset de estilo para gráficos con fondo oscuro (por defecto) */
@@ -165,4 +211,12 @@ export const DARK_CHART_STYLE: Partial<ChartStyle> = {
   labelColor: '#a0a0b8',
   axisColor: '#6b6b80',
   gridColor: '#2d2d44',
+  tableHeaderBg: '#2d2d44',
+  tableHeaderColor: '#f0f0f5',
+  tableRowBg: '#1a1a2e',
+  tableRowAltBg: '#22223a',
+  tableRowColor: '#d0d0e0',
+  tableBorderColor: '#3a3a55',
+  tableTotalBg: '#2d2d44',
+  tableTotalColor: '#f0f0f5',
 };

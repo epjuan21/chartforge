@@ -7,7 +7,12 @@ import { useEditorStateListener } from '@/hooks';
 import { ChartRenderer } from '@/components/charts';
 import { ThemeToggle } from '@/components/ui';
 import type { EditorState } from '@/hooks';
-import { DEFAULT_CHART_CONFIG, DEFAULT_CHART_STYLE, DEFAULT_CHART_DATA } from '@/utils/defaults';
+import {
+  DEFAULT_CHART_CONFIG,
+  DEFAULT_CHART_STYLE,
+  DEFAULT_CHART_DATA,
+  DEFAULT_TABLE_DATA,
+} from '@/utils/defaults';
 import { getPaletteColors } from '@/constants';
 import styles from './preview.module.css';
 
@@ -16,6 +21,7 @@ const FALLBACK: EditorState = {
   config: DEFAULT_CHART_CONFIG,
   style: DEFAULT_CHART_STYLE,
   colors: getPaletteColors('vibrant'),
+  tableData: DEFAULT_TABLE_DATA,
 };
 
 export default function PreviewClient() {
@@ -48,6 +54,7 @@ export default function PreviewClient() {
             config={state.config}
             style={state.style}
             colors={state.colors}
+            tableData={state.tableData}
           />
         </div>
       </main>

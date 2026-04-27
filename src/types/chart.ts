@@ -10,7 +10,27 @@ export type ChartType =
   | 'doughnut'
   | 'radar'
   | 'composed'
-  | 'pyramid';
+  | 'pyramid'
+  | 'table';
+
+// Definición de una columna en el tipo Tabla
+export type TableColumnType = 'text' | 'number';
+export type TableAlign = 'left' | 'center' | 'right';
+
+export interface TableColumn {
+  id: string;
+  label: string;
+  type: TableColumnType;
+  align: TableAlign;
+}
+
+// Datos de una tabla — independiente de ChartData
+export interface TableData {
+  columns: TableColumn[];
+  rows: (string | number)[][]; // rows[rowIndex][colIndex]
+  showTotal: boolean; // fila de totales calculada automáticamente
+  totalLabel: string; // etiqueta de la fila Total (ej. "Total")
+}
 
 // Una serie de datos (nombre + color asignado)
 export interface DataSeries {
@@ -59,4 +79,16 @@ export interface ChartStyle {
   opacity: number; // Opacidad de relleno (área, torta)
   showDataLabels: boolean; // Mostrar valores sobre las barras/puntos
   barThickness: number; // Grosor de las barras en pirámide poblacional
+  // Estilos específicos para el tipo Tabla
+  tableHeaderBg: string;
+  tableHeaderColor: string;
+  tableRowBg: string;
+  tableRowAltBg: string; // Color para filas alternas (zebra)
+  tableRowColor: string;
+  tableBorderColor: string;
+  tableShowBorders: boolean;
+  tableShowZebra: boolean;
+  tableCellPadding: number;
+  tableTotalBg: string;
+  tableTotalColor: string;
 }

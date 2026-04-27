@@ -85,28 +85,30 @@ export default function StyleConfig({
       </Section>
 
       {/* Paleta */}
-      <Section title="Paleta de colores">
-        <div className={styles.paletteGrid}>
-          {COLOR_PALETTES.map((palette) => (
-            <button
-              key={palette.id}
-              type="button"
-              className={[
-                styles.paletteCard,
-                style.palette === palette.id ? styles.paletteActive : '',
-              ].join(' ')}
-              onClick={() => onSetPalette(palette.id)}
-            >
-              <div className={styles.paletteSwatches}>
-                {palette.colors.slice(0, 5).map((c, i) => (
-                  <div key={i} className={styles.paletteSwatch} style={{ background: c }} />
-                ))}
-              </div>
-              <span className={styles.paletteName}>{palette.label}</span>
-            </button>
-          ))}
-        </div>
-      </Section>
+      {config.type !== 'table' && (
+        <Section title="Paleta de colores">
+          <div className={styles.paletteGrid}>
+            {COLOR_PALETTES.map((palette) => (
+              <button
+                key={palette.id}
+                type="button"
+                className={[
+                  styles.paletteCard,
+                  style.palette === palette.id ? styles.paletteActive : '',
+                ].join(' ')}
+                onClick={() => onSetPalette(palette.id)}
+              >
+                <div className={styles.paletteSwatches}>
+                  {palette.colors.slice(0, 5).map((c, i) => (
+                    <div key={i} className={styles.paletteSwatch} style={{ background: c }} />
+                  ))}
+                </div>
+                <span className={styles.paletteName}>{palette.label}</span>
+              </button>
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* Tipografía */}
       <Section title="Tipografía">
@@ -197,91 +199,165 @@ export default function StyleConfig({
       </Section>
 
       {/* Leyenda */}
-      <Section title="Leyenda">
-        <Toggle
-          label="Mostrar leyenda"
-          checked={config.showLegend}
-          onChange={(v) => onUpdateConfig({ showLegend: v })}
-        />
-        {config.showLegend && (
-          <Select
-            label="Posición"
-            options={LEGEND_POSITIONS}
-            value={config.legendPosition}
-            onChange={(v) => onUpdateConfig({ legendPosition: v as ChartConfig['legendPosition'] })}
+      {config.type !== 'table' && (
+        <Section title="Leyenda">
+          <Toggle
+            label="Mostrar leyenda"
+            checked={config.showLegend}
+            onChange={(v) => onUpdateConfig({ showLegend: v })}
           />
-        )}
-      </Section>
+          {config.showLegend && (
+            <Select
+              label="Posición"
+              options={LEGEND_POSITIONS}
+              value={config.legendPosition}
+              onChange={(v) =>
+                onUpdateConfig({ legendPosition: v as ChartConfig['legendPosition'] })
+              }
+            />
+          )}
+        </Section>
+      )}
 
       {/* Opciones */}
-      <Section title="Opciones">
-        <Toggle
-          label="Mostrar grilla"
-          checked={config.showGrid}
-          onChange={(v) => onUpdateConfig({ showGrid: v })}
-        />
-        <Toggle
-          label="Mostrar tooltips"
-          checked={config.showTooltip}
-          onChange={(v) => onUpdateConfig({ showTooltip: v })}
-        />
-        <Toggle
-          label="Animaciones"
-          checked={config.animationEnabled}
-          onChange={(v) => onUpdateConfig({ animationEnabled: v })}
-        />
-        <Toggle
-          label="Mostrar valores"
-          checked={style.showDataLabels}
-          onChange={(v) => onUpdateStyle({ showDataLabels: v })}
-        />
-      </Section>
+      {config.type !== 'table' && (
+        <Section title="Opciones">
+          <Toggle
+            label="Mostrar grilla"
+            checked={config.showGrid}
+            onChange={(v) => onUpdateConfig({ showGrid: v })}
+          />
+          <Toggle
+            label="Mostrar tooltips"
+            checked={config.showTooltip}
+            onChange={(v) => onUpdateConfig({ showTooltip: v })}
+          />
+          <Toggle
+            label="Animaciones"
+            checked={config.animationEnabled}
+            onChange={(v) => onUpdateConfig({ animationEnabled: v })}
+          />
+          <Toggle
+            label="Mostrar valores"
+            checked={style.showDataLabels}
+            onChange={(v) => onUpdateStyle({ showDataLabels: v })}
+          />
+        </Section>
+      )}
 
       {/* Forma */}
-      <Section title="Forma">
-        <Slider
-          label="Radio de borde (barras)"
-          value={style.borderRadius}
-          onChange={(v) => onUpdateStyle({ borderRadius: v })}
-          min={0}
-          max={20}
-          unit="px"
-        />
-        <Slider
-          label="Grosor de línea"
-          value={style.lineWidth}
-          onChange={(v) => onUpdateStyle({ lineWidth: v })}
-          min={1}
-          max={8}
-          unit="px"
-        />
-        <Slider
-          label="Tamaño de puntos"
-          value={style.dotSize}
-          onChange={(v) => onUpdateStyle({ dotSize: v })}
-          min={0}
-          max={12}
-          unit="px"
-        />
-        <Slider
-          label="Opacidad de relleno"
-          value={Math.round(style.opacity * 100)}
-          onChange={(v) => onUpdateStyle({ opacity: v / 100 })}
-          min={10}
-          max={100}
-          unit="%"
-        />
-        {config.type === 'pyramid' && (
+      {config.type !== 'table' && (
+        <Section title="Forma">
           <Slider
-            label="Grosor de barras"
-            value={style.barThickness}
-            onChange={(v) => onUpdateStyle({ barThickness: v })}
-            min={8}
-            max={40}
+            label="Radio de borde (barras)"
+            value={style.borderRadius}
+            onChange={(v) => onUpdateStyle({ borderRadius: v })}
+            min={0}
+            max={20}
             unit="px"
           />
-        )}
-      </Section>
+          <Slider
+            label="Grosor de línea"
+            value={style.lineWidth}
+            onChange={(v) => onUpdateStyle({ lineWidth: v })}
+            min={1}
+            max={8}
+            unit="px"
+          />
+          <Slider
+            label="Tamaño de puntos"
+            value={style.dotSize}
+            onChange={(v) => onUpdateStyle({ dotSize: v })}
+            min={0}
+            max={12}
+            unit="px"
+          />
+          <Slider
+            label="Opacidad de relleno"
+            value={Math.round(style.opacity * 100)}
+            onChange={(v) => onUpdateStyle({ opacity: v / 100 })}
+            min={10}
+            max={100}
+            unit="%"
+          />
+          {config.type === 'pyramid' && (
+            <Slider
+              label="Grosor de barras"
+              value={style.barThickness}
+              onChange={(v) => onUpdateStyle({ barThickness: v })}
+              min={8}
+              max={40}
+              unit="px"
+            />
+          )}
+        </Section>
+      )}
+
+      {/* Sección específica de tabla */}
+      {config.type === 'table' && (
+        <Section title="Tabla">
+          <Toggle
+            label="Mostrar bordes"
+            checked={style.tableShowBorders}
+            onChange={(v) => onUpdateStyle({ tableShowBorders: v })}
+          />
+          <Toggle
+            label="Filas alternas (zebra)"
+            checked={style.tableShowZebra}
+            onChange={(v) => onUpdateStyle({ tableShowZebra: v })}
+          />
+          <Slider
+            label="Padding de celda"
+            value={style.tableCellPadding}
+            onChange={(v) => onUpdateStyle({ tableCellPadding: v })}
+            min={4}
+            max={24}
+            unit="px"
+          />
+          <ColorPicker
+            label="Fondo encabezado"
+            color={style.tableHeaderBg}
+            onChange={(c) => onUpdateStyle({ tableHeaderBg: c })}
+          />
+          <ColorPicker
+            label="Texto encabezado"
+            color={style.tableHeaderColor}
+            onChange={(c) => onUpdateStyle({ tableHeaderColor: c })}
+          />
+          <ColorPicker
+            label="Fondo fila"
+            color={style.tableRowBg}
+            onChange={(c) => onUpdateStyle({ tableRowBg: c })}
+          />
+          {style.tableShowZebra && (
+            <ColorPicker
+              label="Fondo fila alterna"
+              color={style.tableRowAltBg}
+              onChange={(c) => onUpdateStyle({ tableRowAltBg: c })}
+            />
+          )}
+          <ColorPicker
+            label="Texto fila"
+            color={style.tableRowColor}
+            onChange={(c) => onUpdateStyle({ tableRowColor: c })}
+          />
+          <ColorPicker
+            label="Color de bordes"
+            color={style.tableBorderColor}
+            onChange={(c) => onUpdateStyle({ tableBorderColor: c })}
+          />
+          <ColorPicker
+            label="Fondo fila Total"
+            color={style.tableTotalBg}
+            onChange={(c) => onUpdateStyle({ tableTotalBg: c })}
+          />
+          <ColorPicker
+            label="Texto fila Total"
+            color={style.tableTotalColor}
+            onChange={(c) => onUpdateStyle({ tableTotalColor: c })}
+          />
+        </Section>
+      )}
     </div>
   );
 }
