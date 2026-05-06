@@ -87,15 +87,17 @@ function MonochromeBuilder({ active, currentColors, onApply }: MonochromeBuilder
       <NumberInput
         label="Cantidad de tonos"
         value={steps}
-        onChange={(v) => setSteps(Math.max(2, Math.min(12, v)))}
-        min={2}
+        onChange={(v) => setSteps(Math.max(1, Math.min(12, v)))}
+        min={1}
         max={12}
         step={1}
       />
-      <div className={styles.row}>
-        <Slider label="Luminosidad mín." value={lMin} onChange={setLMin} min={0} max={100} unit="%" />
-        <Slider label="Luminosidad máx." value={lMax} onChange={setLMax} min={0} max={100} unit="%" />
-      </div>
+      {steps > 1 && (
+        <div className={styles.row}>
+          <Slider label="Luminosidad mín." value={lMin} onChange={setLMin} min={0} max={100} unit="%" />
+          <Slider label="Luminosidad máx." value={lMax} onChange={setLMax} min={0} max={100} unit="%" />
+        </div>
+      )}
       <div className={styles.monoPreview}>
         {generated.map((c, i) => (
           <div key={i} className={styles.monoSwatch} style={{ background: c }} title={c} />
