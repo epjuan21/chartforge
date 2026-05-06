@@ -150,6 +150,8 @@ export const DEFAULT_CHART_CONFIG: ChartConfig = {
   showLegend: true,
   legendPosition: 'bottom',
   showGrid: true,
+  showXAxis: true,
+  showYAxis: true,
   showTooltip: true,
   animationEnabled: true,
   width: 800,

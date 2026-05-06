@@ -54,6 +54,8 @@ export interface ChartConfig {
   showLegend: boolean;
   legendPosition: 'top' | 'bottom' | 'left' | 'right';
   showGrid: boolean;
+  showXAxis: boolean;
+  showYAxis: boolean;
   showTooltip: boolean;
   animationEnabled: boolean;
   width: number;

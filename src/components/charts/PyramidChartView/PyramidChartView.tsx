@@ -157,6 +157,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
           axisLine={false}
           tickLine={false}
           tickFormatter={formatTick}
+          hide={!config.showXAxis}
         />
         <YAxis
           type="category"
@@ -165,6 +166,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
           axisLine={false}
           tickLine={false}
           width={50}
+          hide={!config.showYAxis}
         />
         <ReferenceLine x={0} stroke={style.axisColor} strokeWidth={1} />
         {config.showTooltip && (

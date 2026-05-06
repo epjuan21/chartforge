@@ -22,15 +22,19 @@ function RadarChartView({ data, config, style, colors }: BaseChartProps) {
     <ResponsiveContainer width="100%" height={config.height}>
       <RadarChart data={chartData} margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
         <PolarGrid stroke={style.gridColor} />
-        <PolarAngleAxis
-          dataKey="category"
-          tick={{
-            fill: style.axisColor,
-            fontSize: style.axisFontSize,
-            fontFamily: style.fontFamily,
-          }}
-        />
-        <PolarRadiusAxis tick={{ fill: style.axisColor, fontSize: style.axisFontSize }} />
+        {config.showXAxis && (
+          <PolarAngleAxis
+            dataKey="category"
+            tick={{
+              fill: style.axisColor,
+              fontSize: style.axisFontSize,
+              fontFamily: style.fontFamily,
+            }}
+          />
+        )}
+        {config.showYAxis && (
+          <PolarRadiusAxis tick={{ fill: style.axisColor, fontSize: style.axisFontSize }} />
+        )}
         {config.showTooltip && (
           <Tooltip contentStyle={tooltipStyle(style)} />
         )}

@@ -44,7 +44,13 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
         )}
         {isHorizontal ? (
           <>
-            <XAxis type="number" tick={commonAxisStyle} axisLine={false} tickLine={false} />
+            <XAxis
+              type="number"
+              tick={commonAxisStyle}
+              axisLine={false}
+              tickLine={false}
+              hide={!config.showXAxis}
+            />
             <YAxis
               type="category"
               dataKey="category"
@@ -52,6 +58,7 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
               axisLine={false}
               tickLine={false}
               width={90}
+              hide={!config.showYAxis}
             />
           </>
         ) : (
@@ -61,8 +68,14 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
               tick={commonAxisStyle}
               axisLine={false}
               tickLine={false}
+              hide={!config.showXAxis}
             />
-            <YAxis tick={commonAxisStyle} axisLine={false} tickLine={false} />
+            <YAxis
+              tick={commonAxisStyle}
+              axisLine={false}
+              tickLine={false}
+              hide={!config.showYAxis}
+            />
           </>
         )}
         {config.showTooltip && (

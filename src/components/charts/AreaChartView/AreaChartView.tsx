@@ -40,8 +40,19 @@ function AreaChartView({ data, config, style, colors }: BaseChartProps) {
         {config.showGrid && (
           <CartesianGrid strokeDasharray="3 3" stroke={style.gridColor} />
         )}
-        <XAxis dataKey="category" tick={commonAxisStyle} axisLine={false} tickLine={false} />
-        <YAxis tick={commonAxisStyle} axisLine={false} tickLine={false} />
+        <XAxis
+          dataKey="category"
+          tick={commonAxisStyle}
+          axisLine={false}
+          tickLine={false}
+          hide={!config.showXAxis}
+        />
+        <YAxis
+          tick={commonAxisStyle}
+          axisLine={false}
+          tickLine={false}
+          hide={!config.showYAxis}
+        />
         {config.showTooltip && (
           <Tooltip contentStyle={tooltipStyle(style)} />
         )}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ChevronDown, ChevronRight, Moon, Sun } from 'lucide-react';
 import type { ChartConfig, ChartStyle } from '@/types';
 import Input from '@/components/ui/Input';
@@ -64,18 +64,6 @@ function MonochromeBuilder({ active, currentColors, onApply }: MonochromeBuilder
     () => generateMonochromePalette(baseColor, steps, lMin, lMax),
     [baseColor, steps, lMin, lMax],
   );
-
-  // Si la paleta monocromática está activa, mantener sincronizados los colores
-  // generados con la configuración del gráfico cuando cambian los parámetros.
-  useEffect(() => {
-    if (!active) return;
-    if (generated.length === 0) return;
-    const same =
-      generated.length === currentColors.length &&
-      generated.every((c, i) => c.toLowerCase() === (currentColors[i] ?? '').toLowerCase());
-    if (!same) onApply(generated);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [generated, active]);
 
   return (
     <div className={styles.monoBuilder}>
@@ -308,6 +296,16 @@ export default function StyleConfig({
             label="Mostrar grilla"
             checked={config.showGrid}
             onChange={(v) => onUpdateConfig({ showGrid: v })}
+          />
+          <Toggle
+            label="Mostrar eje horizontal"
+            checked={config.showXAxis}
+            onChange={(v) => onUpdateConfig({ showXAxis: v })}
+          />
+          <Toggle
+            label="Mostrar eje vertical"
+            checked={config.showYAxis}
+            onChange={(v) => onUpdateConfig({ showYAxis: v })}
           />
           <Toggle
             label="Mostrar tooltips"
