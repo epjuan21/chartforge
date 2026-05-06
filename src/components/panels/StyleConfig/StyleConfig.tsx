@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ChevronDown, ChevronRight, Moon, Sun } from 'lucide-react';
 import type { ChartConfig, ChartStyle } from '@/types';
 import Input from '@/components/ui/Input';
@@ -11,6 +11,7 @@ import Slider from '@/components/ui/Slider';
 import ColorPicker from '@/components/ui/ColorPicker';
 import { COLOR_PALETTES, CHART_FONTS } from '@/constants';
 import { LIGHT_CHART_STYLE, DARK_CHART_STYLE } from '@/utils/defaults';
+import { generateMonochromePalette } from '@/utils/colors';
 import styles from './StyleConfig.module.css';
 
 interface StyleConfigProps {
@@ -37,6 +38,76 @@ function Section({ title, children }: { title: string; children: React.ReactNode
         {open ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
       </button>
       {open && <div className={styles.sectionBody}>{children}</div>}
+    </div>
+  );
+}
+
+const CUSTOM_MONO_ID = 'custom-mono';
+
+interface MonochromeBuilderProps {
+  active: boolean;
+  currentColors: string[];
+  onApply: (colors: string[]) => void;
+}
+
+function MonochromeBuilder({ active, currentColors, onApply }: MonochromeBuilderProps) {
+  const [baseColor, setBaseColor] = useState<string>(
+    active && currentColors[0] ? currentColors[0] : '#6c5ce7',
+  );
+  const [steps, setSteps] = useState<number>(
+    active && currentColors.length > 0 ? currentColors.length : 6,
+  );
+  const [lMin, setLMin] = useState<number>(25);
+  const [lMax, setLMax] = useState<number>(80);
+
+  const generated = useMemo(
+    () => generateMonochromePalette(baseColor, steps, lMin, lMax),
+    [baseColor, steps, lMin, lMax],
+  );
+
+  // Si la paleta monocromática está activa, mantener sincronizados los colores
+  // generados con la configuración del gráfico cuando cambian los parámetros.
+  useEffect(() => {
+    if (!active) return;
+    if (generated.length === 0) return;
+    const same =
+      generated.length === currentColors.length &&
+      generated.every((c, i) => c.toLowerCase() === (currentColors[i] ?? '').toLowerCase());
+    if (!same) onApply(generated);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [generated, active]);
+
+  return (
+    <div className={styles.monoBuilder}>
+      <div className={styles.monoHeader}>
+        <span className={styles.monoTitle}>Generador monocromático</span>
+        {active && <span className={styles.monoBadge}>Activa</span>}
+      </div>
+      <ColorPicker label="Color base" color={baseColor} onChange={setBaseColor} />
+      <NumberInput
+        label="Cantidad de tonos"
+        value={steps}
+        onChange={(v) => setSteps(Math.max(2, Math.min(12, v)))}
+        min={2}
+        max={12}
+        step={1}
+      />
+      <div className={styles.row}>
+        <Slider label="Luminosidad mín." value={lMin} onChange={setLMin} min={0} max={100} unit="%" />
+        <Slider label="Luminosidad máx." value={lMax} onChange={setLMax} min={0} max={100} unit="%" />
+      </div>
+      <div className={styles.monoPreview}>
+        {generated.map((c, i) => (
+          <div key={i} className={styles.monoSwatch} style={{ background: c }} title={c} />
+        ))}
+      </div>
+      <button
+        type="button"
+        className={[styles.monoApply, active ? styles.monoApplyActive : ''].join(' ')}
+        onClick={() => onApply(generated)}
+      >
+        {active ? 'Actualizar paleta monocromática' : 'Aplicar paleta monocromática'}
+      </button>
     </div>
   );
 }
@@ -94,7 +165,9 @@ export default function StyleConfig({
                 type="button"
                 className={[
                   styles.paletteCard,
-                  style.palette === palette.id ? styles.paletteActive : '',
+                  style.palette === palette.id && style.customColors.length === 0
+                    ? styles.paletteActive
+                    : '',
                 ].join(' ')}
                 onClick={() => onSetPalette(palette.id)}
               >
@@ -107,6 +180,13 @@ export default function StyleConfig({
               </button>
             ))}
           </div>
+          <MonochromeBuilder
+            active={style.palette === CUSTOM_MONO_ID && style.customColors.length > 0}
+            currentColors={style.customColors}
+            onApply={(colors) =>
+              onUpdateStyle({ palette: CUSTOM_MONO_ID, customColors: colors })
+            }
+          />
         </Section>
       )}
 

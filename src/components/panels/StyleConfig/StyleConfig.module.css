@@ -102,6 +102,79 @@
   color: var(--color-text-primary);
 }
 
+/* ── Generador monocromático ── */
+.monoBuilder {
+  background: var(--color-bg-surface);
+  border: 1px dashed var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+  padding: 0.65rem;
+}
+
+.monoHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.monoTitle {
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.monoBadge {
+  background: var(--color-accent-primary-muted);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent-secondary);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.1rem 0.4rem;
+  text-transform: uppercase;
+}
+
+.monoPreview {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  display: flex;
+  gap: 2px;
+  height: 1.4rem;
+  overflow: hidden;
+  padding: 2px;
+}
+
+.monoSwatch {
+  border-radius: 2px;
+  flex: 1;
+}
+
+.monoApply {
+  background: var(--color-accent-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 0.5rem;
+  transition: background var(--transition-fast), filter var(--transition-fast);
+}
+
+.monoApply:hover {
+  filter: brightness(1.08);
+}
+
+.monoApplyActive {
+  background: var(--color-accent-secondary, var(--color-accent-primary));
+}
+
 /* ── Presets de tema del gráfico ── */
 .presetRow {
   display: grid;
