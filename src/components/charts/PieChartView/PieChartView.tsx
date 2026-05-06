@@ -32,6 +32,7 @@ function PieChartView({ data, config, style, colors }: BaseChartProps) {
               fontFamily: style.fontFamily,
               fontSize: style.labelFontSize,
               color: style.labelColor,
+              fontWeight: style.labelBold ? 700 : 400,
             }}
           />
         )}

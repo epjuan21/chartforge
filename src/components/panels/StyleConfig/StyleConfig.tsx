@@ -197,6 +197,19 @@ export default function StyleConfig({
           unit="px"
         />
         <Slider
+          label="Tamaño subtítulo"
+          value={style.subtitleFontSize}
+          onChange={(v) => onUpdateStyle({ subtitleFontSize: v })}
+          min={8}
+          max={32}
+          unit="px"
+        />
+        <Toggle
+          label="Subtítulo en negrita"
+          checked={style.subtitleBold}
+          onChange={(v) => onUpdateStyle({ subtitleBold: v })}
+        />
+        <Slider
           label="Tamaño labels"
           value={style.labelFontSize}
           onChange={(v) => onUpdateStyle({ labelFontSize: v })}
@@ -204,13 +217,23 @@ export default function StyleConfig({
           max={24}
           unit="px"
         />
+        <Toggle
+          label="Labels en negrita"
+          checked={style.labelBold}
+          onChange={(v) => onUpdateStyle({ labelBold: v })}
+        />
         <Slider
-          label="Tamaño ejes"
+          label="Tamaño valores (ejes)"
           value={style.axisFontSize}
           onChange={(v) => onUpdateStyle({ axisFontSize: v })}
           min={8}
           max={20}
           unit="px"
+        />
+        <Toggle
+          label="Valores en negrita"
+          checked={style.axisBold}
+          onChange={(v) => onUpdateStyle({ axisBold: v })}
         />
       </Section>
 

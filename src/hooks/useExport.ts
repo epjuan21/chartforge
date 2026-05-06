@@ -10,7 +10,7 @@ interface UseExportReturn {
   isCopying: boolean;
   error: string | null;
   runExport: (options: ExportOptions, title: string) => Promise<void>;
-  runCopy: (scale: number) => Promise<void>;
+  runCopy: (scale: number, transparent?: boolean) => Promise<void>;
 }
 
 export function useExport(chartRef: RefObject<HTMLDivElement | null>): UseExportReturn {
@@ -19,7 +19,7 @@ export function useExport(chartRef: RefObject<HTMLDivElement | null>): UseExport
   const [error, setError] = useState<string | null>(null);
 
   const runCopy = useCallback(
-    async (scale: number) => {
+    async (scale: number, transparent: boolean = false) => {
       const element = chartRef.current;
       if (!element) {
         setError('No se encontró el elemento del gráfico.');
@@ -28,7 +28,7 @@ export function useExport(chartRef: RefObject<HTMLDivElement | null>): UseExport
       setIsCopying(true);
       setError(null);
       try {
-        await copyToClipboard(element, scale);
+        await copyToClipboard(element, scale, transparent);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al copiar el gráfico.');
       } finally {

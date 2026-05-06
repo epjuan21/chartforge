@@ -10,7 +10,7 @@ interface ExportPanelProps {
   isCopying: boolean;
   error: string | null;
   onExport: (options: ExportOptions) => void;
-  onCopy: (scale: number) => Promise<void>;
+  onCopy: (scale: number, transparent: boolean) => Promise<void>;
 }
 
 const FORMAT_OPTIONS: { id: ExportFormat; label: string; desc: string }[] = [
@@ -44,7 +44,7 @@ export default function ExportPanel({ isExporting, isCopying, error, onExport, o
 
   async function handleCopy() {
     setCopySuccess(false);
-    await onCopy(scale);
+    await onCopy(scale, transparent);
     setCopySuccess(true);
     setTimeout(() => setCopySuccess(false), 2500);
   }

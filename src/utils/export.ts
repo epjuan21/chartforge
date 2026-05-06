@@ -82,13 +82,16 @@ export async function exportToPdf(
 export async function copyToClipboard(
   element: HTMLElement,
   scale: number = 2,
+  transparent: boolean = false,
 ): Promise<void> {
   if (!navigator.clipboard?.write) {
     throw new Error('Tu navegador no soporta copiar imágenes al portapapeles.');
   }
 
   const { toPng } = await import('html-to-image');
-  const computedBg = getComputedStyle(element).backgroundColor || undefined;
+  const computedBg = transparent
+    ? undefined
+    : (getComputedStyle(element).backgroundColor || undefined);
   const dataUrl = await toPng(element, {
     pixelRatio: scale,
     backgroundColor: computedBg,
@@ -98,7 +101,19 @@ export async function copyToClipboard(
 
   const res = await fetch(dataUrl);
   const blob = await res.blob();
-  await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+
+  // Adicionalmente incluimos un fragmento HTML con la imagen embebida.
+  // Algunas aplicaciones (Google Docs/Slides, editores web, varios clientes
+  // de correo) prefieren `text/html` y respetan el canal alfa del PNG
+  // embebido, mientras que al pegar como `image/png` puro lo aplanan contra
+  // blanco. Esto mejora la transparencia al pegar; Office para Windows aún
+  // puede aplanarla por limitaciones del portapapeles del sistema.
+  const items: Record<string, Blob> = { 'image/png': blob };
+  if (transparent) {
+    const html = `<img src="${dataUrl}" alt="" style="background:transparent" />`;
+    items['text/html'] = new Blob([html], { type: 'text/html' });
+  }
+  await navigator.clipboard.write([new ClipboardItem(items)]);
 }
 
 function triggerDownload(dataUrl: string, filename: string) {

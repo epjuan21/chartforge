@@ -21,6 +21,7 @@ function AreaChartView({ data, config, style, colors }: BaseChartProps) {
     fill: style.axisColor,
     fontSize: style.axisFontSize,
     fontFamily: style.fontFamily,
+    fontWeight: style.axisBold ? 700 : 400,
   };
 
   return (
@@ -63,6 +64,7 @@ function AreaChartView({ data, config, style, colors }: BaseChartProps) {
               fontFamily: style.fontFamily,
               fontSize: style.labelFontSize,
               color: style.labelColor,
+              fontWeight: style.labelBold ? 700 : 400,
             }}
           />
         )}

@@ -68,10 +68,14 @@ export interface ChartStyle {
   fontFamily: string;
   titleFontSize: number;
   titleColor: string;
+  subtitleFontSize: number;
+  subtitleBold: boolean;
   labelFontSize: number;
   labelColor: string;
+  labelBold: boolean;
   axisFontSize: number;
   axisColor: string;
+  axisBold: boolean;
   gridColor: string;
   borderRadius: number; // Para barras redondeadas
   lineWidth: number; // Grosor de línea

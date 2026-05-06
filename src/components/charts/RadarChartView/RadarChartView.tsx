@@ -29,11 +29,12 @@ function RadarChartView({ data, config, style, colors }: BaseChartProps) {
               fill: style.axisColor,
               fontSize: style.axisFontSize,
               fontFamily: style.fontFamily,
+              fontWeight: style.axisBold ? 700 : 400,
             }}
           />
         )}
         {config.showYAxis && (
-          <PolarRadiusAxis tick={{ fill: style.axisColor, fontSize: style.axisFontSize }} />
+          <PolarRadiusAxis tick={{ fill: style.axisColor, fontSize: style.axisFontSize, fontWeight: style.axisBold ? 700 : 400 }} />
         )}
         {config.showTooltip && (
           <Tooltip contentStyle={tooltipStyle(style)} />
@@ -44,6 +45,7 @@ function RadarChartView({ data, config, style, colors }: BaseChartProps) {
               fontFamily: style.fontFamily,
               fontSize: style.labelFontSize,
               color: style.labelColor,
+              fontWeight: style.labelBold ? 700 : 400,
             }}
           />
         )}

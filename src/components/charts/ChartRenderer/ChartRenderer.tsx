@@ -79,9 +79,10 @@ export default function ChartRenderer({
             <p
               className={styles.subtitle}
               style={{
-                fontSize: style.labelFontSize,
+                fontSize: style.subtitleFontSize,
                 color: style.labelColor,
                 fontFamily: style.fontFamily,
+                fontWeight: style.subtitleBold ? 700 : 400,
               }}
             >
               {config.subtitle}

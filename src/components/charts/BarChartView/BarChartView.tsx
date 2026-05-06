@@ -25,6 +25,7 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
     fill: style.axisColor,
     fontSize: style.axisFontSize,
     fontFamily: style.fontFamily,
+    fontWeight: style.axisBold ? 700 : 400,
   };
 
   return (
@@ -92,6 +93,7 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
               fontFamily: style.fontFamily,
               fontSize: style.labelFontSize,
               color: style.labelColor,
+              fontWeight: style.labelBold ? 700 : 400,
             }}
           />
         )}
@@ -108,7 +110,7 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
             {style.showDataLabels && (
               <LabelList
                 position={isHorizontal ? 'right' : 'top'}
-                style={{ fill: style.labelColor, fontSize: style.labelFontSize, fontFamily: style.fontFamily }}
+                style={{ fill: style.labelColor, fontSize: style.labelFontSize, fontFamily: style.fontFamily, fontWeight: style.labelBold ? 700 : 400 }}
               />
             )}
             {/* Para pie-like single series con colores por celda */}

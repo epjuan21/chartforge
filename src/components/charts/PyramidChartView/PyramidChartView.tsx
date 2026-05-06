@@ -58,6 +58,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
     fill: style.axisColor,
     fontSize: style.axisFontSize,
     fontFamily: style.fontFamily,
+    fontWeight: style.axisBold ? 700 : 400,
   };
 
   // Eje X: valores absolutos sin sufijo %
@@ -97,12 +98,13 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
           fill={style.labelColor}
           fontSize={style.labelFontSize - 1}
           fontFamily={style.fontFamily}
+          fontWeight={style.labelBold ? 700 : 400}
         >
           {abs % 1 === 0 ? abs : abs.toFixed(1)}
         </text>
       );
     },
-    [style.labelColor, style.labelFontSize, style.fontFamily],
+    [style.labelColor, style.labelFontSize, style.fontFamily, style.labelBold],
   );
 
   // Label para la serie derecha (valores positivos)
@@ -125,12 +127,13 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
           fill={style.labelColor}
           fontSize={style.labelFontSize - 1}
           fontFamily={style.fontFamily}
+          fontWeight={style.labelBold ? 700 : 400}
         >
           {abs % 1 === 0 ? abs : abs.toFixed(1)}
         </text>
       );
     },
-    [style.labelColor, style.labelFontSize, style.fontFamily],
+    [style.labelColor, style.labelFontSize, style.fontFamily, style.labelBold],
   );
 
   return (
@@ -192,6 +195,7 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
               fontFamily: style.fontFamily,
               fontSize: style.labelFontSize,
               color: style.labelColor,
+              fontWeight: style.labelBold ? 700 : 400,
             }}
           />
         )}
