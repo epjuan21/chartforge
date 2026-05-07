@@ -110,7 +110,7 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
             {style.showDataLabels && (
               <LabelList
                 position={isHorizontal ? 'right' : 'top'}
-                style={{ fill: style.labelColor, fontSize: style.labelFontSize, fontFamily: style.fontFamily, fontWeight: style.labelBold ? 700 : 400 }}
+                style={{ fill: style.labelColor, fontSize: style.labelFontSize, fontFamily: style.fontFamily }}
               />
             )}
             {/* Para pie-like single series con colores por celda */}

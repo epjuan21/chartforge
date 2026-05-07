@@ -98,13 +98,12 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
           fill={style.labelColor}
           fontSize={style.labelFontSize - 1}
           fontFamily={style.fontFamily}
-          fontWeight={style.labelBold ? 700 : 400}
         >
           {abs % 1 === 0 ? abs : abs.toFixed(1)}
         </text>
       );
     },
-    [style.labelColor, style.labelFontSize, style.fontFamily, style.labelBold],
+    [style.labelColor, style.labelFontSize, style.fontFamily],
   );
 
   // Label para la serie derecha (valores positivos)
@@ -127,13 +126,12 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
           fill={style.labelColor}
           fontSize={style.labelFontSize - 1}
           fontFamily={style.fontFamily}
-          fontWeight={style.labelBold ? 700 : 400}
         >
           {abs % 1 === 0 ? abs : abs.toFixed(1)}
         </text>
       );
     },
-    [style.labelColor, style.labelFontSize, style.fontFamily, style.labelBold],
+    [style.labelColor, style.labelFontSize, style.fontFamily],
   );
 
   return (

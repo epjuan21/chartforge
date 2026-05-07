@@ -72,7 +72,7 @@ function LineChartView({ data, config, style, colors }: BaseChartProps) {
             {style.showDataLabels && (
               <LabelList
                 position="top"
-                style={{ fill: style.labelColor, fontSize: style.labelFontSize, fontFamily: style.fontFamily, fontWeight: style.labelBold ? 700 : 400 }}
+                style={{ fill: style.labelColor, fontSize: style.labelFontSize, fontFamily: style.fontFamily }}
               />
             )}
           </Line>
