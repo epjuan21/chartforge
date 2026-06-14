@@ -26,19 +26,19 @@
 ## 3.1 Inicialización del Proyecto
 
 ```bash
-npx -y create-next-app@latest ./ --typescript --eslint --app --src-dir --no-tailwind --import-alias "@/*"
+pnpm create next-app@latest ./ --typescript --eslint --app --src-dir --no-tailwind --import-alias "@/*"
 ```
 
 ## 3.2 Dependencias
 
 ### Producción
 ```bash
-npm install recharts react-colorful html-to-image jspdf lucide-react
+pnpm add recharts react-colorful html-to-image jspdf lucide-react
 ```
 
 ### Desarrollo
 ```bash
-npm install -D prettier eslint-config-prettier
+pnpm add -D prettier eslint-config-prettier
 ```
 
 ## 3.3 TypeScript Estricto
@@ -88,10 +88,10 @@ export const metadata = {
 
 | Check | Comando | Criterio |
 |-------|---------|----------|
-| Compila | `npm run build` | Sin errores |
-| Dev server | `npm run dev` | localhost:3000 |
-| TypeScript | `npx tsc --noEmit` | Sin errores |
-| Lint | `npm run lint` | Sin errores |
+| Compila | `pnpm build` | Sin errores |
+| Dev server | `pnpm dev` | localhost:3000 |
+| TypeScript | `pnpm exec tsc --noEmit` | Sin errores |
+| Lint | `pnpm lint` | Sin errores |
 | CSS Variables | DevTools | Variables en `:root` |
 | Fuentes | DevTools | Inter y JetBrains activas |
 

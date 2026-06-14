@@ -17,8 +17,11 @@ function getInitialTheme(): Theme {
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme>('dark');
 
-  // Inicializar desde localStorage/media query tras montar
+  // Inicializar desde localStorage/media query tras montar.
+  // Se hace en un efecto (y no en el inicializador de useState) para evitar
+  // un desajuste de hidratación: el servidor no tiene acceso a localStorage.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sincroniza con localStorage solo en cliente
     setThemeState(getInitialTheme());
   }, []);
 

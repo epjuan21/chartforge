@@ -41,23 +41,26 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v4
 
+      - name: Configurar pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Instalar dependencias
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Verificar tipos TypeScript
-        run: npx tsc --noEmit
+        run: pnpm exec tsc --noEmit
 
       - name: Ejecutar ESLint
-        run: npm run lint
+        run: pnpm lint
 
       - name: Build de prueba
-        run: npm run build
+        run: pnpm build
 ```
 
 **Disparador**: Cualquier Pull Request hacia `main`.  
@@ -83,17 +86,20 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v4
 
+      - name: Configurar pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Instalar dependencias
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build de producción
-        run: npm run build
+        run: pnpm build
 
       - name: Desplegar en Vercel
         uses: amondnet/vercel-action@v25
@@ -115,10 +121,10 @@ jobs:
 flowchart LR
     A[Push / PR] --> B[Checkout]
     B --> C[Setup Node 20]
-    C --> D[npm ci]
+    C --> D[pnpm install]
     D --> E[tsc --noEmit\nverificación de tipos]
-    E --> F[npm run lint\nESLint]
-    F --> G[npm run build\nbuild de producción]
+    E --> F[pnpm lint\nESLint]
+    F --> G[pnpm build\nbuild de producción]
     G -->|Solo en main| H[Deploy Vercel]
     H --> I[Sitio en producción]
 ```

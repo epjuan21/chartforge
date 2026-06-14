@@ -8,7 +8,7 @@ El flujo habitual para este tipo de aplicación estática es:
 
 | Entorno | Descripción |
 |---------|-------------|
-| **Desarrollo** | Local, `npm run dev`, puerto 3005 |
+| **Desarrollo** | Local, `pnpm dev`, puerto 3005 |
 | **Producción** | Plataforma de hosting estático (Vercel, Netlify, etc.) |
 
 ---
@@ -30,13 +30,13 @@ La aplicación genera un **sitio estático** (sin API routes ni servidor de apli
 
 ```bash
 # 1. Instalar dependencias
-npm install
+pnpm install
 
 # 2. Generar el build optimizado
-npm run build
+pnpm build
 
 # 3. (Opcional) Probar el build localmente antes de desplegar
-npm run start
+pnpm start
 ```
 
 El build produce los archivos optimizados en la carpeta `.next/`. Next.js aplica automáticamente:

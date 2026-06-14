@@ -24,13 +24,13 @@ cd chartforge
 ### 2. Instalar dependencias
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 3. Iniciar el servidor de desarrollo
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 El servidor quedará disponible en [http://localhost:3005](http://localhost:3005) (puerto configurado en el script de `package.json`).
@@ -56,10 +56,10 @@ La aplicación es 100% client-side y no necesita ningún archivo `.env` para fun
 
 | Comando | Descripción |
 |---------|-------------|
-| `npm run dev` | Inicia el servidor de desarrollo en el puerto 3005 |
-| `npm run build` | Genera el build optimizado para producción |
-| `npm run start` | Sirve el build de producción localmente |
-| `npm run lint` | Ejecuta ESLint sobre todo el código fuente |
+| `pnpm dev` | Inicia el servidor de desarrollo en el puerto 3005 |
+| `pnpm build` | Genera el build optimizado para producción |
+| `pnpm start` | Sirve el build de producción localmente |
+| `pnpm lint` | Ejecuta ESLint sobre todo el código fuente |
 
 ---
 
@@ -69,7 +69,7 @@ La aplicación es 100% client-side y no necesita ningún archivo `.env` para fun
 Configurado con las reglas de `eslint-config-next`. Incluye validaciones de accesibilidad, hooks de React y buenas prácticas de Next.js.
 
 ```bash
-npm run lint
+pnpm lint
 ```
 
 ### TypeScript
@@ -77,7 +77,7 @@ El compilador valida los tipos en tiempo de desarrollo. Los errores de tipo impi
 
 ```bash
 # Verificar tipos sin generar archivos
-npx tsc --noEmit
+pnpm exec tsc --noEmit
 ```
 
 ---
@@ -87,16 +87,16 @@ npx tsc --noEmit
 ### El puerto 3005 ya está en uso
 ```bash
 # Encontrar el proceso que usa el puerto
-npx kill-port 3005
+pnpm dlx kill-port 3005
 # O cambiar el puerto en package.json:
 # "dev": "next dev --turbopack -p 3006"
 ```
 
 ### Error al instalar dependencias en Windows
-Si `npm install` falla por permisos en Windows:
+Si `pnpm install` falla por permisos en Windows:
 ```bash
 # Ejecutar la terminal como Administrador, o:
-npm install --legacy-peer-deps
+pnpm install --no-strict-peer-dependencies
 ```
 
 ### Cambios en el editor no se reflejan en /preview
@@ -105,9 +105,9 @@ La sincronización entre pestañas usa `localStorage`. Asegúrese de que ambas p
 ### Build falla por errores de tipo TypeScript
 ```bash
 # Ver todos los errores de tipo
-npx tsc --noEmit
+pnpm exec tsc --noEmit
 ```
-Corrija los errores indicados antes de volver a ejecutar `npm run build`.
+Corrija los errores indicados antes de volver a ejecutar `pnpm build`.
 
 ### Fuentes de Google no cargan en desarrollo offline
 Las fuentes Inter y JetBrains Mono se cargan desde Google Fonts CDN. Sin conexión, el navegador usará la fuente del sistema como respaldo (definida en los estilos base).

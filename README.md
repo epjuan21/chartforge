@@ -75,20 +75,20 @@ Generador de gráficos estadísticos profesionales. Crea, personaliza y exporta 
 
 ### Requisitos
 - Node.js 18 o superior
-- npm 9 o superior
+- pnpm 9 o superior (gestionado vía Corepack)
 
 ### Instalación
 
 ```bash
 git clone https://github.com/epjuan21/chartforge.git
 cd chartforge
-npm install
+pnpm install
 ```
 
 ### Desarrollo
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Abre [http://localhost:3000](http://localhost:3000) en el navegador.
@@ -96,14 +96,14 @@ Abre [http://localhost:3000](http://localhost:3000) en el navegador.
 ### Producción
 
 ```bash
-npm run build   # Genera el build optimizado
-npm run start   # Sirve el build localmente
+pnpm build   # Genera el build optimizado
+pnpm start   # Sirve el build localmente
 ```
 
 ### Otros scripts
 
 ```bash
-npm run lint    # Ejecuta ESLint
+pnpm lint    # Ejecuta ESLint
 ```
 
 ---

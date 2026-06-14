@@ -9,7 +9,7 @@ import Select from '@/components/ui/Select';
 import Toggle from '@/components/ui/Toggle';
 import Slider from '@/components/ui/Slider';
 import ColorPicker from '@/components/ui/ColorPicker';
-import { COLOR_PALETTES, CHART_FONTS } from '@/constants';
+import { COLOR_PALETTES, CHART_FONTS, getChartCapabilities } from '@/constants';
 import { LIGHT_CHART_STYLE, DARK_CHART_STYLE } from '@/utils/defaults';
 import { generateMonochromePalette } from '@/utils/colors';
 import styles from './StyleConfig.module.css';
@@ -109,6 +109,7 @@ export default function StyleConfig({
   onUpdateStyle,
   onSetPalette,
 }: StyleConfigProps) {
+  const caps = getChartCapabilities(config.type);
   return (
     <div className={styles.panel}>
       {/* General */}
@@ -146,7 +147,7 @@ export default function StyleConfig({
       </Section>
 
       {/* Paleta */}
-      {config.type !== 'table' && (
+      {caps.hasPalette && (
         <Section title="Paleta de colores">
           <div className={styles.paletteGrid}>
             {COLOR_PALETTES.map((palette) => (
@@ -292,7 +293,7 @@ export default function StyleConfig({
       </Section>
 
       {/* Leyenda */}
-      {config.type !== 'table' && (
+      {caps.hasLegend && (
         <Section title="Leyenda">
           <Toggle
             label="Mostrar leyenda"
@@ -312,78 +313,107 @@ export default function StyleConfig({
         </Section>
       )}
 
-      {/* Opciones */}
-      {config.type !== 'table' && (
-        <Section title="Opciones">
-          <Toggle
-            label="Mostrar grilla"
-            checked={config.showGrid}
-            onChange={(v) => onUpdateConfig({ showGrid: v })}
-          />
-          <Toggle
-            label="Mostrar eje horizontal"
-            checked={config.showXAxis}
-            onChange={(v) => onUpdateConfig({ showXAxis: v })}
-          />
-          <Toggle
-            label="Mostrar eje vertical"
-            checked={config.showYAxis}
-            onChange={(v) => onUpdateConfig({ showYAxis: v })}
-          />
-          <Toggle
-            label="Mostrar tooltips"
-            checked={config.showTooltip}
-            onChange={(v) => onUpdateConfig({ showTooltip: v })}
-          />
-          <Toggle
-            label="Animaciones"
-            checked={config.animationEnabled}
-            onChange={(v) => onUpdateConfig({ animationEnabled: v })}
-          />
-          <Toggle
-            label="Mostrar valores"
-            checked={style.showDataLabels}
-            onChange={(v) => onUpdateStyle({ showDataLabels: v })}
-          />
+      {/* Ejes y opciones */}
+      {(caps.hasGrid ||
+        caps.hasXAxis ||
+        caps.hasYAxis ||
+        caps.hasTooltip ||
+        caps.hasAnimation) && (
+        <Section title="Ejes y opciones">
+          {caps.hasGrid && (
+            <Toggle
+              label="Mostrar grilla"
+              checked={config.showGrid}
+              onChange={(v) => onUpdateConfig({ showGrid: v })}
+            />
+          )}
+          {caps.hasXAxis && (
+            <Toggle
+              label="Mostrar eje horizontal"
+              checked={config.showXAxis}
+              onChange={(v) => onUpdateConfig({ showXAxis: v })}
+            />
+          )}
+          {caps.hasYAxis && (
+            <Toggle
+              label="Mostrar eje vertical"
+              checked={config.showYAxis}
+              onChange={(v) => onUpdateConfig({ showYAxis: v })}
+            />
+          )}
+          {caps.hasTooltip && (
+            <Toggle
+              label="Mostrar tooltips"
+              checked={config.showTooltip}
+              onChange={(v) => onUpdateConfig({ showTooltip: v })}
+            />
+          )}
+          {caps.hasAnimation && (
+            <Toggle
+              label="Animaciones"
+              checked={config.animationEnabled}
+              onChange={(v) => onUpdateConfig({ animationEnabled: v })}
+            />
+          )}
         </Section>
       )}
 
-      {/* Forma */}
-      {config.type !== 'table' && (
-        <Section title="Forma">
-          <Slider
-            label="Radio de borde (barras)"
-            value={style.borderRadius}
-            onChange={(v) => onUpdateStyle({ borderRadius: v })}
-            min={0}
-            max={20}
-            unit="px"
-          />
-          <Slider
-            label="Grosor de línea"
-            value={style.lineWidth}
-            onChange={(v) => onUpdateStyle({ lineWidth: v })}
-            min={1}
-            max={8}
-            unit="px"
-          />
-          <Slider
-            label="Tamaño de puntos"
-            value={style.dotSize}
-            onChange={(v) => onUpdateStyle({ dotSize: v })}
-            min={0}
-            max={12}
-            unit="px"
-          />
-          <Slider
-            label="Opacidad de relleno"
-            value={Math.round(style.opacity * 100)}
-            onChange={(v) => onUpdateStyle({ opacity: v / 100 })}
-            min={10}
-            max={100}
-            unit="%"
-          />
-          {config.type === 'pyramid' && (
+      {/* Sección exclusiva del tipo de gráfico */}
+      {(caps.hasDataLabels ||
+        caps.hasBorderRadius ||
+        caps.hasLineWidth ||
+        caps.hasDotSize ||
+        caps.hasOpacity ||
+        caps.hasBarThickness) && (
+        <Section title={caps.typeLabel}>
+          {caps.hasDataLabels && (
+            <Toggle
+              label="Mostrar valores"
+              checked={style.showDataLabels}
+              onChange={(v) => onUpdateStyle({ showDataLabels: v })}
+            />
+          )}
+          {caps.hasBorderRadius && (
+            <Slider
+              label="Radio de borde"
+              value={style.borderRadius}
+              onChange={(v) => onUpdateStyle({ borderRadius: v })}
+              min={0}
+              max={20}
+              unit="px"
+            />
+          )}
+          {caps.hasLineWidth && (
+            <Slider
+              label="Grosor de línea"
+              value={style.lineWidth}
+              onChange={(v) => onUpdateStyle({ lineWidth: v })}
+              min={1}
+              max={8}
+              unit="px"
+            />
+          )}
+          {caps.hasDotSize && (
+            <Slider
+              label="Tamaño de puntos"
+              value={style.dotSize}
+              onChange={(v) => onUpdateStyle({ dotSize: v })}
+              min={0}
+              max={12}
+              unit="px"
+            />
+          )}
+          {caps.hasOpacity && (
+            <Slider
+              label="Opacidad de relleno"
+              value={Math.round(style.opacity * 100)}
+              onChange={(v) => onUpdateStyle({ opacity: v / 100 })}
+              min={10}
+              max={100}
+              unit="%"
+            />
+          )}
+          {caps.hasBarThickness && (
             <Slider
               label="Grosor de barras"
               value={style.barThickness}
@@ -397,7 +427,7 @@ export default function StyleConfig({
       )}
 
       {/* Sección específica de tabla */}
-      {config.type === 'table' && (
+      {caps.isTable && (
         <Section title="Tabla">
           <Toggle
             label="Mostrar bordes"
