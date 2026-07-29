@@ -21,6 +21,8 @@ export interface ChartCapabilities {
   hasDotSize: boolean;
   hasOpacity: boolean;
   hasBarThickness: boolean;
+  // Formato de valores numéricos
+  hasValueFormat: boolean;
   // Tabla
   isTable: boolean;
 }
@@ -40,6 +42,7 @@ const BASE: ChartCapabilities = {
   hasDotSize: false,
   hasOpacity: false,
   hasBarThickness: false,
+  hasValueFormat: false,
   isTable: false,
 };
 
@@ -51,6 +54,7 @@ const BAR_CAPABILITIES: ChartCapabilities = {
   hasYAxis: true,
   hasDataLabels: true,
   hasBorderRadius: true,
+  hasValueFormat: true,
 };
 
 const CAPABILITIES: Record<ChartType, ChartCapabilities> = {
@@ -67,6 +71,7 @@ const CAPABILITIES: Record<ChartType, ChartCapabilities> = {
     hasDataLabels: true,
     hasLineWidth: true,
     hasDotSize: true,
+    hasValueFormat: true,
   },
   area: {
     ...BASE,
@@ -76,18 +81,21 @@ const CAPABILITIES: Record<ChartType, ChartCapabilities> = {
     hasYAxis: true,
     hasLineWidth: true,
     hasOpacity: true,
+    hasValueFormat: true,
   },
   pie: {
     ...BASE,
     typeLabel: 'Torta',
     hasDataLabels: true,
     hasOpacity: true,
+    hasValueFormat: true,
   },
   doughnut: {
     ...BASE,
     typeLabel: 'Anillo',
     hasDataLabels: true,
     hasOpacity: true,
+    hasValueFormat: true,
   },
   radar: {
     ...BASE,
@@ -96,6 +104,7 @@ const CAPABILITIES: Record<ChartType, ChartCapabilities> = {
     hasYAxis: true,
     hasLineWidth: true,
     hasOpacity: true,
+    hasValueFormat: true,
   },
   composed: {
     ...BASE,
@@ -106,6 +115,7 @@ const CAPABILITIES: Record<ChartType, ChartCapabilities> = {
     hasBorderRadius: true,
     hasLineWidth: true,
     hasDotSize: true,
+    hasValueFormat: true,
   },
   pyramid: {
     ...BASE,
@@ -113,6 +123,7 @@ const CAPABILITIES: Record<ChartType, ChartCapabilities> = {
     hasDataLabels: true,
     hasBorderRadius: true,
     hasBarThickness: true,
+    hasValueFormat: true,
   },
   table: {
     ...BASE,

@@ -13,7 +13,7 @@ import {
   LabelList,
 } from 'recharts';
 import type { BaseChartProps } from '../shared';
-import { toRechartsData, tooltipStyle } from '../shared';
+import { toRechartsData, tooltipStyle, formatChartValue } from '../shared';
 
 function LineChartView({ data, config, style, colors }: BaseChartProps) {
   const chartData = useMemo(() => toRechartsData(data), [data]);
@@ -42,10 +42,14 @@ function LineChartView({ data, config, style, colors }: BaseChartProps) {
           tick={commonAxisStyle}
           axisLine={false}
           tickLine={false}
+          tickFormatter={(v) => formatChartValue(v as number, style)}
           hide={!config.showYAxis}
         />
         {config.showTooltip && (
-          <Tooltip contentStyle={tooltipStyle(style)} />
+          <Tooltip
+            contentStyle={tooltipStyle(style)}
+            formatter={((value: number | string) => formatChartValue(value, style)) as never}
+          />
         )}
         {config.showLegend && (
           <Legend
@@ -72,6 +76,7 @@ function LineChartView({ data, config, style, colors }: BaseChartProps) {
             {style.showDataLabels && (
               <LabelList
                 position="top"
+                formatter={(v) => formatChartValue(v as number, style)}
                 style={{ fill: style.labelColor, fontSize: style.labelFontSize, fontFamily: style.fontFamily }}
               />
             )}

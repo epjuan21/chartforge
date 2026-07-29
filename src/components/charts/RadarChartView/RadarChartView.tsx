@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import type { BaseChartProps } from '../shared';
-import { toRechartsData, tooltipStyle } from '../shared';
+import { toRechartsData, tooltipStyle, formatChartValue } from '../shared';
 import { hexWithOpacity } from '@/utils/colors';
 
 function RadarChartView({ data, config, style, colors }: BaseChartProps) {
@@ -34,10 +34,16 @@ function RadarChartView({ data, config, style, colors }: BaseChartProps) {
           />
         )}
         {config.showYAxis && (
-          <PolarRadiusAxis tick={{ fill: style.axisColor, fontSize: style.axisFontSize, fontWeight: style.axisBold ? 700 : 400 }} />
+          <PolarRadiusAxis
+            tick={{ fill: style.axisColor, fontSize: style.axisFontSize, fontWeight: style.axisBold ? 700 : 400 }}
+            tickFormatter={(v) => formatChartValue(v as number, style)}
+          />
         )}
         {config.showTooltip && (
-          <Tooltip contentStyle={tooltipStyle(style)} />
+          <Tooltip
+            contentStyle={tooltipStyle(style)}
+            formatter={((value: number | string) => formatChartValue(value, style)) as never}
+          />
         )}
         {config.showLegend && (
           <Legend

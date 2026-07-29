@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import type { BaseChartProps } from '../shared';
-import { toRechartsData, tooltipStyle } from '../shared';
+import { toRechartsData, tooltipStyle, formatChartValue } from '../shared';
 
 function AreaChartView({ data, config, style, colors }: BaseChartProps) {
   const chartData = useMemo(() => toRechartsData(data), [data]);
@@ -52,10 +52,14 @@ function AreaChartView({ data, config, style, colors }: BaseChartProps) {
           tick={commonAxisStyle}
           axisLine={false}
           tickLine={false}
+          tickFormatter={(v) => formatChartValue(v as number, style)}
           hide={!config.showYAxis}
         />
         {config.showTooltip && (
-          <Tooltip contentStyle={tooltipStyle(style)} />
+          <Tooltip
+            contentStyle={tooltipStyle(style)}
+            formatter={((value: number | string) => formatChartValue(value, style)) as never}
+          />
         )}
         {config.showLegend && (
           <Legend

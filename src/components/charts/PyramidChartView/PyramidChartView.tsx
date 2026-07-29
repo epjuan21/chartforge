@@ -14,7 +14,7 @@ import {
   ReferenceLine,
 } from 'recharts';
 import type { BaseChartProps } from '../shared';
-import { tooltipStyle } from '../shared';
+import { tooltipStyle, formatChartValue } from '../shared';
 
 /**
  * Pirámide poblacional: barras horizontales opuestas.
@@ -61,19 +61,19 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
     fontWeight: style.axisBold ? 700 : 400,
   };
 
-  // Eje X: valores absolutos sin sufijo %
-  const formatTick = useCallback((value: number) => {
-    const abs = Math.abs(value);
-    return abs % 1 === 0 ? `${abs}` : `${abs.toFixed(1)}`;
-  }, []);
+  // Eje X: valores absolutos con el formato configurado
+  const formatTick = useCallback(
+    (value: number) => formatChartValue(Math.abs(value), style),
+    [style],
+  );
 
-  // Tooltip: valores absolutos
+  // Tooltip: valores absolutos con el formato configurado
   const formatTooltipValue = useCallback(
     (value: unknown) => {
       const num = typeof value === 'number' ? value : Number(value ?? 0);
-      return `${Math.abs(num)}`;
+      return formatChartValue(Math.abs(num), style);
     },
-    [],
+    [style],
   );
 
   // Label para la serie izquierda (valores negativos)
@@ -99,11 +99,11 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
           fontSize={style.labelFontSize - 1}
           fontFamily={style.fontFamily}
         >
-          {abs % 1 === 0 ? abs : abs.toFixed(1)}
+          {formatChartValue(abs, style)}
         </text>
       );
     },
-    [style.labelColor, style.labelFontSize, style.fontFamily],
+    [style],
   );
 
   // Label para la serie derecha (valores positivos)
@@ -127,11 +127,11 @@ function PyramidChartView({ data, config, style, colors }: BaseChartProps) {
           fontSize={style.labelFontSize - 1}
           fontFamily={style.fontFamily}
         >
-          {abs % 1 === 0 ? abs : abs.toFixed(1)}
+          {formatChartValue(abs, style)}
         </text>
       );
     },
-    [style.labelColor, style.labelFontSize, style.fontFamily],
+    [style],
   );
 
   return (

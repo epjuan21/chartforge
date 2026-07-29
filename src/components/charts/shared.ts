@@ -32,6 +32,31 @@ export function tooltipStyle(style: ChartStyle): React.CSSProperties {
   };
 }
 
+/**
+ * Formatea un valor numérico según la configuración de estilo del gráfico.
+ * Soporta formato de número simple o moneda, con decimales y separador de miles.
+ * Se usa en labels de datos, ticks de ejes y tooltips.
+ */
+export function formatChartValue(
+  value: number | string | null | undefined,
+  style: ChartStyle,
+): string {
+  const num = typeof value === 'number' ? value : Number(value ?? 0);
+  if (!Number.isFinite(num)) return '';
+  const decimals = Math.max(0, Math.min(4, style.valueDecimals ?? 0));
+  const numberPart = style.useThousandSeparator
+    ? num.toLocaleString('es-CO', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })
+    : num.toFixed(decimals);
+  if (style.numberFormat === 'currency') {
+    const symbol = style.currencySymbol?.trim() || '$';
+    return `${symbol}${numberPart}`;
+  }
+  return numberPart;
+}
+
 /** Heurística simple: luma > 0.5 → color claro */
 function isLightColor(hex: string): boolean {
   const r = parseInt(hex.slice(1, 3), 16);

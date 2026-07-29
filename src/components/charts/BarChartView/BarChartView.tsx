@@ -14,7 +14,7 @@ import {
   Cell,
 } from 'recharts';
 import type { BaseChartProps } from '../shared';
-import { toRechartsData, tooltipStyle } from '../shared';
+import { toRechartsData, tooltipStyle, formatChartValue } from '../shared';
 
 function BarChartView({ data, config, style, colors }: BaseChartProps) {
   const chartData = useMemo(() => toRechartsData(data), [data]);
@@ -50,6 +50,7 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
               tick={commonAxisStyle}
               axisLine={false}
               tickLine={false}
+              tickFormatter={(v) => formatChartValue(v as number, style)}
               hide={!config.showXAxis}
             />
             <YAxis
@@ -75,6 +76,7 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
               tick={commonAxisStyle}
               axisLine={false}
               tickLine={false}
+              tickFormatter={(v) => formatChartValue(v as number, style)}
               hide={!config.showYAxis}
             />
           </>
@@ -83,6 +85,7 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
           <Tooltip
             contentStyle={tooltipStyle(style)}
             cursor={{ fill: 'rgba(128,128,128,0.06)' }}
+            formatter={((value: number | string) => formatChartValue(value, style)) as never}
           />
         )}
         {config.showLegend && (
@@ -110,6 +113,7 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
             {style.showDataLabels && (
               <LabelList
                 position={isHorizontal ? 'right' : 'top'}
+                formatter={(v) => formatChartValue(v as number, style)}
                 style={{ fill: style.labelColor, fontSize: style.labelFontSize, fontFamily: style.fontFamily }}
               />
             )}

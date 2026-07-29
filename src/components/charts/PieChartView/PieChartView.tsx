@@ -3,7 +3,7 @@
 import { memo, useMemo } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import type { BaseChartProps } from '../shared';
-import { tooltipStyle } from '../shared';
+import { tooltipStyle, formatChartValue } from '../shared';
 
 interface PieEntry {
   name: string;
@@ -23,7 +23,10 @@ function PieChartView({ data, config, style, colors }: BaseChartProps) {
     <ResponsiveContainer width="100%" height={config.height}>
       <PieChart>
         {config.showTooltip && (
-          <Tooltip contentStyle={tooltipStyle(style)} />
+          <Tooltip
+            contentStyle={tooltipStyle(style)}
+            formatter={((value: number | string) => formatChartValue(value, style)) as never}
+          />
         )}
         {config.showLegend && (
           <Legend

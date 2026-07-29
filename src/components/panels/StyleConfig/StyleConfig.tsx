@@ -358,6 +358,44 @@ export default function StyleConfig({
         </Section>
       )}
 
+      {/* Formato de valores numéricos */}
+      {caps.hasValueFormat && (
+        <Section title="Formato de valores">
+          <Select
+            label="Formato"
+            options={[
+              { value: 'plain', label: 'Número' },
+              { value: 'currency', label: 'Moneda' },
+            ]}
+            value={style.numberFormat ?? 'plain'}
+            onChange={(v) =>
+              onUpdateStyle({ numberFormat: v as ChartStyle['numberFormat'] })
+            }
+          />
+          {(style.numberFormat ?? 'plain') === 'currency' && (
+            <Input
+              label="Símbolo de moneda"
+              value={style.currencySymbol ?? '$'}
+              onChange={(v) => onUpdateStyle({ currencySymbol: v })}
+              placeholder="$"
+            />
+          )}
+          <NumberInput
+            label="Decimales"
+            value={style.valueDecimals ?? 0}
+            onChange={(v) => onUpdateStyle({ valueDecimals: Math.max(0, Math.min(4, v)) })}
+            min={0}
+            max={4}
+            step={1}
+          />
+          <Toggle
+            label="Separador de miles"
+            checked={style.useThousandSeparator ?? false}
+            onChange={(v) => onUpdateStyle({ useThousandSeparator: v })}
+          />
+        </Section>
+      )}
+
       {/* Sección exclusiva del tipo de gráfico */}
       {(caps.hasDataLabels ||
         caps.hasBorderRadius ||

@@ -85,6 +85,11 @@ export interface ChartStyle {
   opacity: number; // Opacidad de relleno (área, torta)
   showDataLabels: boolean; // Mostrar valores sobre las barras/puntos
   barThickness: number; // Grosor de las barras en pirámide poblacional
+  // Formato de valores numéricos (labels, ejes, tooltips)
+  numberFormat: 'plain' | 'currency'; // Número simple o formato moneda
+  currencySymbol: string; // Símbolo de moneda (ej. $, €, COP)
+  valueDecimals: number; // Cantidad de decimales a mostrar
+  useThousandSeparator: boolean; // Usar separador de miles
   // Estilos específicos para el tipo Tabla
   tableHeaderBg: string;
   tableHeaderColor: string;
