@@ -189,6 +189,7 @@ export const DEFAULT_CHART_STYLE: ChartStyle = {
   opacity: 0.8,
   showDataLabels: false,
   barThickness: 20,
+  standardBarThickness: 60,
   horizontalAxisLabelWidth: 90,
   horizontalAxisLabelAlign: 'right',
   progressTrackColor: '#2d2d44',

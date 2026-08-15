@@ -91,6 +91,7 @@ export interface ChartStyle {
   opacity: number; // Opacidad de relleno (área, torta)
   showDataLabels: boolean; // Mostrar valores sobre las barras/puntos
   barThickness: number; // Grosor de las barras en pirámide poblacional
+  standardBarThickness: number; // Grosor máximo para barras verticales y horizontales
   horizontalAxisLabelWidth: number; // Espacio reservado para categorías en barras horizontales
   horizontalAxisLabelAlign: 'left' | 'right';
   progressTrackColor: string;

@@ -443,6 +443,16 @@ export default function StyleConfig({
               onChange={(v) => onUpdateStyle({ showDataLabels: v })}
             />
           )}
+          {(config.type === 'bar' || config.type === 'bar-horizontal') && (
+            <Slider
+              label="Grosor máximo de barras"
+              value={style.standardBarThickness}
+              onChange={(v) => onUpdateStyle({ standardBarThickness: v })}
+              min={8}
+              max={120}
+              unit="px"
+            />
+          )}
           {config.type === 'bar-horizontal' && (
             <>
               <Slider

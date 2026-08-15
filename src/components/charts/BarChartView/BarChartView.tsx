@@ -153,7 +153,11 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
             }
             stackId={isStacked ? 'stack' : undefined}
             isAnimationActive={config.animationEnabled}
-            maxBarSize={60}
+            maxBarSize={
+              config.type === 'bar' || config.type === 'bar-horizontal'
+                ? style.standardBarThickness
+                : 60
+            }
           >
             {style.showDataLabels && (
               <LabelList
