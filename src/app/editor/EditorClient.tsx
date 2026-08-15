@@ -16,6 +16,7 @@ import {
   CircleDot,
   Radar,
   Combine,
+  ListChecks,
   Triangle,
   Table as TableIcon,
 } from 'lucide-react';
@@ -45,6 +46,7 @@ const TYPE_ICONS: Record<string, React.ReactNode> = {
   'bar-horizontal': <BarChart3 size={15} style={{ transform: 'rotate(90deg)' }} />,
   'bar-stacked': <BarChart4 size={15} />,
   'bar-grouped': <BarChart2 size={15} />,
+  progress: <ListChecks size={15} />,
   line: <LineChart size={15} />,
   area: <AreaChart size={15} />,
   pie: <PieChart size={15} />,
@@ -100,6 +102,9 @@ export default function EditorClient() {
   function handleTypeChange(type: ChartType) {
     setType(type);
     if (type !== 'table') loadExample(type);
+    if (type === 'progress' && style.valueDecimals === 0) {
+      updateStyle({ valueDecimals: 1 });
+    }
   }
 
   function handleExport(options: ExportOptions) {

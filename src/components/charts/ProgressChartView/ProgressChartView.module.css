@@ -1,0 +1,52 @@
+.chart {
+  align-content: center;
+  box-sizing: border-box;
+  display: grid;
+  min-height: 0;
+  overflow: hidden;
+  padding: 1.5rem 2.75rem;
+}
+
+.row {
+  min-width: 0;
+}
+
+.rowHeader {
+  align-items: baseline;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  min-width: 0;
+}
+
+.label {
+  line-height: 1.25;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.value {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.track {
+  overflow: hidden;
+  width: 100%;
+}
+
+.fill {
+  height: 100%;
+  min-width: 0;
+  transition-property: width;
+  transition-timing-function: ease-out;
+}
+
+@media (max-width: 640px) {
+  .chart {
+    padding-inline: 1rem;
+  }
+}

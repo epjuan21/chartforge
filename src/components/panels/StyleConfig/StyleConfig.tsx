@@ -433,7 +433,8 @@ export default function StyleConfig({
         caps.hasLineWidth ||
         caps.hasDotSize ||
         caps.hasOpacity ||
-        caps.hasBarThickness) && (
+        caps.hasBarThickness ||
+        caps.hasProgressStyle) && (
         <Section title={caps.typeLabel}>
           {caps.hasDataLabels && (
             <Toggle
@@ -516,6 +517,31 @@ export default function StyleConfig({
               max={40}
               unit="px"
             />
+          )}
+          {caps.hasProgressStyle && (
+            <>
+              <ColorPicker
+                label="Color de pista"
+                color={style.progressTrackColor}
+                onChange={(c) => onUpdateStyle({ progressTrackColor: c })}
+              />
+              <Slider
+                label="Grosor de barras"
+                value={style.progressBarHeight}
+                onChange={(v) => onUpdateStyle({ progressBarHeight: v })}
+                min={8}
+                max={48}
+                unit="px"
+              />
+              <Slider
+                label="Separación entre filas"
+                value={style.progressRowGap}
+                onChange={(v) => onUpdateStyle({ progressRowGap: v })}
+                min={8}
+                max={80}
+                unit="px"
+              />
+            </>
           )}
         </Section>
       )}

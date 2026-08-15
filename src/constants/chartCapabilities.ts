@@ -21,6 +21,7 @@ export interface ChartCapabilities {
   hasDotSize: boolean;
   hasOpacity: boolean;
   hasBarThickness: boolean;
+  hasProgressStyle: boolean;
   // Formato de valores numéricos
   hasValueFormat: boolean;
   // Tabla
@@ -42,6 +43,7 @@ const BASE: ChartCapabilities = {
   hasDotSize: false,
   hasOpacity: false,
   hasBarThickness: false,
+  hasProgressStyle: false,
   hasValueFormat: false,
   isTable: false,
 };
@@ -62,6 +64,14 @@ const CAPABILITIES: Record<ChartType, ChartCapabilities> = {
   'bar-horizontal': BAR_CAPABILITIES,
   'bar-stacked': BAR_CAPABILITIES,
   'bar-grouped': BAR_CAPABILITIES,
+  progress: {
+    ...BASE,
+    typeLabel: 'Barras de progreso',
+    hasLegend: false,
+    hasTooltip: false,
+    hasProgressStyle: true,
+    hasValueFormat: true,
+  },
   line: {
     ...BASE,
     typeLabel: 'Líneas',

@@ -33,6 +33,12 @@ export const CHART_TYPES: ChartTypeOption[] = [
     description: 'Compara múltiples series',
   },
   {
+    id: 'progress',
+    label: 'Barras de Progreso',
+    icon: 'ListChecks',
+    description: 'Indicadores comparados sobre una escala común',
+  },
+  {
     id: 'line',
     label: 'Líneas',
     icon: 'LineChart',

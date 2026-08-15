@@ -4,6 +4,7 @@ export type ChartType =
   | 'bar-horizontal'
   | 'bar-stacked'
   | 'bar-grouped'
+  | 'progress'
   | 'line'
   | 'area'
   | 'pie'
@@ -92,6 +93,9 @@ export interface ChartStyle {
   barThickness: number; // Grosor de las barras en pirámide poblacional
   horizontalAxisLabelWidth: number; // Espacio reservado para categorías en barras horizontales
   horizontalAxisLabelAlign: 'left' | 'right';
+  progressTrackColor: string;
+  progressBarHeight: number;
+  progressRowGap: number;
   // Formato de valores numéricos (labels, ejes, tooltips)
   numberFormat: 'plain' | 'currency'; // Número simple o formato moneda
   currencySymbol: string; // Símbolo de moneda (ej. $, €, COP)

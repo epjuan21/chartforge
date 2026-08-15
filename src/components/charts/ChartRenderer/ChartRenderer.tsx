@@ -9,6 +9,7 @@ import PieChartView from '../PieChartView';
 import RadarChartView from '../RadarChartView';
 import ComposedChartView from '../ComposedChartView';
 import PyramidChartView from '../PyramidChartView';
+import ProgressChartView from '../ProgressChartView';
 import TableView from '../TableView';
 import styles from './ChartRenderer.module.css';
 
@@ -50,6 +51,8 @@ export default function ChartRenderer({
         return <ComposedChartView {...props} />;
       case 'pyramid':
         return <PyramidChartView {...props} />;
+      case 'progress':
+        return <ProgressChartView {...props} />;
     }
   }
 

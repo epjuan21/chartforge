@@ -45,6 +45,11 @@ export const DEFAULT_CHART_DATA: Record<ChartType, ChartData> = {
       [390, 460, 510, 580],
     ],
   },
+  progress: {
+    categories: ['Cantidad de clientes', 'Ingresos', 'Ingresos por cliente'],
+    series: [{ id: 's1', name: 'Valor', color: '#009ddb' }],
+    values: [[511.5, 263.3, 51.5]],
+  },
   line: {
     categories: BASE_CATEGORIES,
     series: [
@@ -186,6 +191,9 @@ export const DEFAULT_CHART_STYLE: ChartStyle = {
   barThickness: 20,
   horizontalAxisLabelWidth: 90,
   horizontalAxisLabelAlign: 'right',
+  progressTrackColor: '#2d2d44',
+  progressBarHeight: 24,
+  progressRowGap: 36,
   numberFormat: 'plain',
   currencySymbol: '$',
   valueDecimals: 0,
@@ -209,6 +217,7 @@ export const LIGHT_CHART_STYLE: Partial<ChartStyle> = {
   titleColor: '#18181f',
   subtitleColor: '#4a4a60',
   labelColor: '#4a4a60',
+  progressTrackColor: '#e7e5e1',
   axisColor: '#8080a0',
   gridColor: '#e4e4ef',
   tableHeaderBg: '#f4f4f8',
@@ -227,6 +236,7 @@ export const DARK_CHART_STYLE: Partial<ChartStyle> = {
   titleColor: '#f0f0f5',
   subtitleColor: '#a0a0b8',
   labelColor: '#a0a0b8',
+  progressTrackColor: '#2d2d44',
   axisColor: '#6b6b80',
   gridColor: '#2d2d44',
   tableHeaderBg: '#2d2d44',

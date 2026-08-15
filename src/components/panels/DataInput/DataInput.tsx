@@ -36,7 +36,8 @@ export default function DataInput({
   onSetValue,
   onLoadExample,
 }: DataInputProps) {
-  const singleSeries = isPieType(chartType);
+  const segmentLayout = isPieType(chartType);
+  const singleSeries = segmentLayout || chartType === 'progress';
   const debouncedSetValue = useDebounce(onSetValue, 80);
 
   return (
@@ -45,7 +46,7 @@ export default function DataInput({
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
           <span className={styles.sectionTitle}>
-            {singleSeries ? 'Segmentos' : 'Categorías (eje X)'}
+            {segmentLayout ? 'Segmentos' : 'Categorías (eje X)'}
           </span>
           <Button size="sm" variant="ghost" icon={<Plus size={13} />} onClick={onAddCategory}>
             Agregar
@@ -123,7 +124,7 @@ export default function DataInput({
             <thead>
               <tr>
                 <th className={styles.th}></th>
-                {singleSeries
+                {segmentLayout
                   ? data.categories.map((cat, ci) => (
                       <th key={ci} className={styles.th}>
                         {cat}
@@ -137,7 +138,7 @@ export default function DataInput({
               </tr>
             </thead>
             <tbody>
-              {singleSeries ? (
+              {segmentLayout ? (
                 <tr>
                   <td className={styles.tdLabel}>Valor</td>
                   {data.categories.map((_, ci) => (
