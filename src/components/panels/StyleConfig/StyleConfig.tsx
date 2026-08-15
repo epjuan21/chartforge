@@ -29,6 +29,12 @@ const LEGEND_POSITIONS = [
   { value: 'right', label: 'Derecha' },
 ];
 
+const TEXT_ALIGNMENTS = [
+  { value: 'left', label: 'Izquierda' },
+  { value: 'center', label: 'Centro' },
+  { value: 'right', label: 'Derecha' },
+];
+
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
   return (
@@ -120,11 +126,31 @@ export default function StyleConfig({
           onChange={(v) => onUpdateConfig({ title: v })}
           placeholder="Título del gráfico"
         />
+        <Select
+          label="Alineación del título"
+          options={TEXT_ALIGNMENTS}
+          value={config.titleAlign}
+          onChange={(v) => onUpdateConfig({ titleAlign: v as ChartConfig['titleAlign'] })}
+        />
         <Input
           label="Subtítulo"
           value={config.subtitle}
           onChange={(v) => onUpdateConfig({ subtitle: v })}
           placeholder="Subtítulo opcional"
+        />
+        <Select
+          label="Alineación del subtítulo"
+          options={TEXT_ALIGNMENTS}
+          value={config.subtitleAlign}
+          onChange={(v) =>
+            onUpdateConfig({ subtitleAlign: v as ChartConfig['subtitleAlign'] })
+          }
+        />
+        <Input
+          label="Texto inferior / fuente"
+          value={config.footerText}
+          onChange={(v) => onUpdateConfig({ footerText: v })}
+          placeholder="Fuente: organización, informe, año..."
         />
         <div className={styles.row}>
           <NumberInput
@@ -276,6 +302,11 @@ export default function StyleConfig({
           onChange={(c) => onUpdateStyle({ titleColor: c })}
         />
         <ColorPicker
+          label="Color subtítulo"
+          color={style.subtitleColor}
+          onChange={(c) => onUpdateStyle({ subtitleColor: c })}
+        />
+        <ColorPicker
           label="Color labels"
           color={style.labelColor}
           onChange={(c) => onUpdateStyle({ labelColor: c })}
@@ -410,6 +441,31 @@ export default function StyleConfig({
               checked={style.showDataLabels}
               onChange={(v) => onUpdateStyle({ showDataLabels: v })}
             />
+          )}
+          {config.type === 'bar-horizontal' && (
+            <>
+              <Slider
+                label="Espacio para etiquetas"
+                value={style.horizontalAxisLabelWidth}
+                onChange={(v) => onUpdateStyle({ horizontalAxisLabelWidth: v })}
+                min={60}
+                max={400}
+                unit="px"
+              />
+              <Select
+                label="Alineación de etiquetas"
+                options={[
+                  { value: 'left', label: 'Izquierda' },
+                  { value: 'right', label: 'Derecha' },
+                ]}
+                value={style.horizontalAxisLabelAlign}
+                onChange={(v) =>
+                  onUpdateStyle({
+                    horizontalAxisLabelAlign: v as ChartStyle['horizontalAxisLabelAlign'],
+                  })
+                }
+              />
+            </>
           )}
           {caps.hasBorderRadius && (
             <Slider

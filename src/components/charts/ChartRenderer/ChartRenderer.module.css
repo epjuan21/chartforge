@@ -6,7 +6,6 @@
 
 .header {
   margin-bottom: 0.75rem;
-  text-align: center;
 }
 
 .title {
@@ -17,5 +16,12 @@
 
 .subtitle {
   margin: 0.3rem 0 0;
-  opacity: 0.75;
+}
+
+.footer {
+  font-size: 0.7rem;
+  line-height: 1.35;
+  margin: 0.75rem 0 0;
+  opacity: 0.8;
+  text-align: left;
 }

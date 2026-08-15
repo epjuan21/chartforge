@@ -146,7 +146,10 @@ export const DEFAULT_TABLE_DATA: TableData = {
 export const DEFAULT_CHART_CONFIG: ChartConfig = {
   type: 'bar',
   title: 'Título del Gráfico',
+  titleAlign: 'center',
   subtitle: '',
+  subtitleAlign: 'center',
+  footerText: '',
   showLegend: true,
   legendPosition: 'bottom',
   showGrid: true,
@@ -164,6 +167,7 @@ export const DEFAULT_CHART_STYLE: ChartStyle = {
   titleFontSize: 20,
   titleColor: '#f0f0f5',
   subtitleFontSize: 14,
+  subtitleColor: '#a0a0b8',
   subtitleBold: false,
   labelFontSize: 13,
   labelColor: '#a0a0b8',
@@ -180,6 +184,8 @@ export const DEFAULT_CHART_STYLE: ChartStyle = {
   opacity: 0.8,
   showDataLabels: false,
   barThickness: 20,
+  horizontalAxisLabelWidth: 90,
+  horizontalAxisLabelAlign: 'right',
   numberFormat: 'plain',
   currencySymbol: '$',
   valueDecimals: 0,
@@ -201,6 +207,7 @@ export const DEFAULT_CHART_STYLE: ChartStyle = {
 export const LIGHT_CHART_STYLE: Partial<ChartStyle> = {
   backgroundColor: '#ffffff',
   titleColor: '#18181f',
+  subtitleColor: '#4a4a60',
   labelColor: '#4a4a60',
   axisColor: '#8080a0',
   gridColor: '#e4e4ef',
@@ -218,6 +225,7 @@ export const LIGHT_CHART_STYLE: Partial<ChartStyle> = {
 export const DARK_CHART_STYLE: Partial<ChartStyle> = {
   backgroundColor: '#1a1a2e',
   titleColor: '#f0f0f5',
+  subtitleColor: '#a0a0b8',
   labelColor: '#a0a0b8',
   axisColor: '#6b6b80',
   gridColor: '#2d2d44',

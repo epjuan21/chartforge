@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import type { ChartData, ChartConfig, ChartStyle, TableData } from '@/types';
+import { DEFAULT_CHART_CONFIG, DEFAULT_CHART_STYLE } from '@/utils/defaults';
 
 const STORAGE_KEY = 'chartforge_editor_state';
 
@@ -24,7 +25,14 @@ export function saveEditorState(state: EditorState) {
 export function loadEditorState(): EditorState | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as EditorState) : null;
+    if (!raw) return null;
+
+    const stored = JSON.parse(raw) as EditorState;
+    return {
+      ...stored,
+      config: { ...DEFAULT_CHART_CONFIG, ...stored.config },
+      style: { ...DEFAULT_CHART_STYLE, ...stored.style },
+    };
   } catch {
     return null;
   }

@@ -63,26 +63,30 @@ export default function ChartRenderer({
         width: '100%',
       }}
     >
-      {config.title && (
+      {(config.title || config.subtitle) && (
         <div className={styles.header}>
-          <h2
-            className={styles.title}
-            style={{
-              fontSize: style.titleFontSize,
-              color: style.titleColor,
-              fontFamily: style.fontFamily,
-            }}
-          >
-            {config.title}
-          </h2>
+          {config.title && (
+            <h2
+              className={styles.title}
+              style={{
+                fontSize: style.titleFontSize,
+                color: style.titleColor,
+                fontFamily: style.fontFamily,
+                textAlign: config.titleAlign,
+              }}
+            >
+              {config.title}
+            </h2>
+          )}
           {config.subtitle && (
             <p
               className={styles.subtitle}
               style={{
                 fontSize: style.subtitleFontSize,
-                color: style.labelColor,
+                color: style.subtitleColor,
                 fontFamily: style.fontFamily,
                 fontWeight: style.subtitleBold ? 700 : 400,
+                textAlign: config.subtitleAlign,
               }}
             >
               {config.subtitle}
@@ -91,6 +95,14 @@ export default function ChartRenderer({
         </div>
       )}
       {renderChart()}
+      {config.footerText && (
+        <p
+          className={styles.footer}
+          style={{ color: style.labelColor, fontFamily: style.fontFamily }}
+        >
+          {config.footerText}
+        </p>
+      )}
     </div>
   );
 }

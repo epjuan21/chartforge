@@ -13,8 +13,40 @@ import {
   LabelList,
   Cell,
 } from 'recharts';
+import type { YAxisTickContentProps } from 'recharts';
 import type { BaseChartProps } from '../shared';
+import type { ChartStyle } from '@/types';
 import { toRechartsData, tooltipStyle, formatChartValue } from '../shared';
+
+interface HorizontalAxisTickProps extends YAxisTickContentProps {
+  axisWidth: number;
+  align: ChartStyle['horizontalAxisLabelAlign'];
+  axisStyle: React.CSSProperties;
+}
+
+function HorizontalAxisTick({
+  x,
+  y,
+  payload,
+  axisWidth,
+  align,
+  axisStyle,
+}: HorizontalAxisTickProps) {
+  const rightEdge = Number(x);
+  const textX = align === 'left' ? rightEdge - axisWidth + 8 : rightEdge;
+
+  return (
+    <text
+      x={textX}
+      y={Number(y)}
+      dy="0.355em"
+      textAnchor={align === 'left' ? 'start' : 'end'}
+      style={axisStyle}
+    >
+      {String(payload.value)}
+    </text>
+  );
+}
 
 function BarChartView({ data, config, style, colors }: BaseChartProps) {
   const chartData = useMemo(() => toRechartsData(data), [data]);
@@ -56,10 +88,17 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
             <YAxis
               type="category"
               dataKey="category"
-              tick={commonAxisStyle}
+              tick={(props) => (
+                <HorizontalAxisTick
+                  {...props}
+                  axisWidth={style.horizontalAxisLabelWidth}
+                  align={style.horizontalAxisLabelAlign}
+                  axisStyle={commonAxisStyle}
+                />
+              )}
               axisLine={false}
               tickLine={false}
-              width={90}
+              width={style.horizontalAxisLabelWidth}
               hide={!config.showYAxis}
             />
           </>
@@ -105,7 +144,13 @@ function BarChartView({ data, config, style, colors }: BaseChartProps) {
             key={serie.id}
             dataKey={serie.name}
             fill={colors[index % colors.length]}
-            radius={isStacked ? 0 : [style.borderRadius, style.borderRadius, 0, 0]}
+            radius={
+              isStacked
+                ? 0
+                : isHorizontal
+                  ? [0, style.borderRadius, style.borderRadius, 0]
+                  : [style.borderRadius, style.borderRadius, 0, 0]
+            }
             stackId={isStacked ? 'stack' : undefined}
             isAnimationActive={config.animationEnabled}
             maxBarSize={60}

@@ -16,6 +16,7 @@ export type ChartType =
 // Definición de una columna en el tipo Tabla
 export type TableColumnType = 'text' | 'number';
 export type TableAlign = 'left' | 'center' | 'right';
+export type TextAlign = 'left' | 'center' | 'right';
 
 export interface TableColumn {
   id: string;
@@ -50,7 +51,10 @@ export interface ChartData {
 export interface ChartConfig {
   type: ChartType;
   title: string;
+  titleAlign: TextAlign;
   subtitle: string;
+  subtitleAlign: TextAlign;
+  footerText: string;
   showLegend: boolean;
   legendPosition: 'top' | 'bottom' | 'left' | 'right';
   showGrid: boolean;
@@ -69,6 +73,7 @@ export interface ChartStyle {
   titleFontSize: number;
   titleColor: string;
   subtitleFontSize: number;
+  subtitleColor: string;
   subtitleBold: boolean;
   labelFontSize: number;
   labelColor: string;
@@ -85,6 +90,8 @@ export interface ChartStyle {
   opacity: number; // Opacidad de relleno (área, torta)
   showDataLabels: boolean; // Mostrar valores sobre las barras/puntos
   barThickness: number; // Grosor de las barras en pirámide poblacional
+  horizontalAxisLabelWidth: number; // Espacio reservado para categorías en barras horizontales
+  horizontalAxisLabelAlign: 'left' | 'right';
   // Formato de valores numéricos (labels, ejes, tooltips)
   numberFormat: 'plain' | 'currency'; // Número simple o formato moneda
   currencySymbol: string; // Símbolo de moneda (ej. $, €, COP)
